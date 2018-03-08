@@ -1,0 +1,147 @@
+<head>
+  <style type="text/css">
+
+  /*  USE TO EMULATE INLINE CSS*/
+    .collapsedoption {
+      display: block !important;
+    }
+
+
+
+    @media screen and (min-width: 768px) {
+      .collapsedoption {
+        display:none !important;
+      }
+
+    }
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:35px !important; 
+    padding-bottom:0 !important;
+    height: 80px;
+}
+.navbar {min-height:80px !important;}
+  .navbar-fixed-top{
+    
+/*  -webkit-box-shadow: 0 10px 5px #888888;
+  -moz-box-shadow: 0 10px 5px #888888;*/
+  box-shadow: 0 2px 5px #888888;
+  }
+/*    .navbar-collapse.in {
+    overflow-y: hidden;
+  }*/
+/*  .navbar-header, .navbar-nav{
+    font-size: 20px;
+    padding-top: 30px;
+  }*/
+
+.icon-bar {
+   background-color:black !important;
+
+}
+
+.navbar-toggle{
+
+  border:2px solid black !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+}
+
+
+.user-toggle{
+  position: relative;
+float: right;
+padding: 9px 10px;
+margin-top: 8px;
+margin-bottom: 8px;
+background-color: transparent;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+
+}
+
+
+
+  </style>
+</head>
+<nav class="navbar navbar-fixed-top" ng-controller="navBarController" style="background:white;">
+  <div class="container-fluid"><!-- ng-app="mainAppAngular"  ng-cloak-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- <div class="navbar-header"> -->
+      <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed " ng-show ="!userAuthenticated">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+
+
+      <a href="[[ brandUrl ]]" class="navbar-brand"> 
+        <img id="inicioLogo" src="static/img/logos/navbarlogo.svg" style="width:100px;max-height:80px;float:left;margin-top:-30px;padding-top:-30px;" class="img-responsive" alt="No hay logo">
+        <!-- <logo-condominioaldia scale="0.015"></logo-condominioaldia> -->
+      </a><!--navbar-brand-->
+    <!-- </div> --><!--navbar header-->
+
+
+
+
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" uib-collapse="navCollapsed" ng-click = "navbarToggler()" ng-show="!userAuthenticated" >
+
+
+
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li><a href="#/login">SIGN IN</a></li>-->
+            <li><a href="#/login" ng-show ="!userAuthenticated">SIGN IN</a></li>
+            <li><a href="#/join" ng-show ="!userAuthenticated">JOIN</a></li>
+<!--             <li><a href="" ng-show ="userAuthenticated" ng-click="logout()"><i style="margin-top:-10px;" class="fa fa-user fa-3x"></i><span>[[userData.usermame|capitalize]]</span></a></li> -->
+<!-- <li><a href="" ng-show ="!userAuthenticated" ng-click="logout()">Sign Out</a></li> -->
+            <li><a href="#/help" ng-show ="!userAuthenticated">Help</a></li>
+
+
+
+          </ul>
+
+          <ul class="nav navbar-nav">
+            <li><a href="#/howitworks" ng-show="!userAuthenticated">HOW IT WORKS</a></li>
+            <li><a href="#" ng-show="!userAuthenticated">FIND SHIPMENTS</a></li>
+            <li><a href="#" ng-show="!userAuthenticated">SHIP</a></li>
+            <li class="collapsedoption"><a href="#">HELP</a></li>
+            <li class="collapsedoption"><a href="#">COMPANY</a></li>
+            <li class="collapsedoption"><a href="#">CAREERS</a></li>
+            <li class="collapsedoption"><a href="#">PRESS</a></li>
+            <li class="collapsedoption"><a href="#">BLOG</a></li>
+            <li class="collapsedoption"><a href="#">CATEGORIES</a></li>
+          </ul>
+    </div><!-- /.navbar-collapse -->
+
+
+
+    <!-- Simple dropdown -->
+<ul class="navbar-right">
+     <span uib-dropdown on-toggle="toggled(open)"  ng-show ="userAuthenticated" >
+      <a href id="simple-dropdown" uib-dropdown-toggle >
+        <i  class="fa fa-user fa-3x"></i>
+        <span >[[userData.usermame|capitalize]]<span style="margin-left:10px"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+        </span>
+      </a>
+      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+        <li>
+          <a href ="#/profile"><span style="margin-right:10px;"> <i class="fa fa-cog fa-2x"></i></span>Account Settings</a>
+          <a href><span style="margin-right:10px;"> <i class="fa fa-users fa-2x"></i></span>Invite Friends</a>
+          <a href ng-click="logout()"><span style="margin-right:10px;"> <i class="fa fa-sign-out fa-2x"></i></span>Log Out</a>
+        </li>
+      </ul>
+    </span>
+
+</ul>
+
+
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+

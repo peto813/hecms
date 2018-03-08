@@ -1,0 +1,61 @@
+<head>
+  <style type="text/css">
+    .modal-body .row{
+      margin-top: 10px;
+    }
+  </style>
+</head>
+        <button style="margin-right: 10px;margin-top: 10px;" ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Item Details</h3>
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Item:</b> 
+              </div>
+              <div class="col-xs-6">
+                <td>[[item.item_name]]</td>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <b>Lot #</b>
+              </div>
+              <div class="col-xs-6 col-md-6">
+               [[item.lot_number]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <b>View Picture:</b>
+              </div>
+              <div class="col-xs-6 col-md-6">
+                <a ng-href="[[item.image1]]"><button><i class="fa fa-camera"></i></button></a>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <td><b>Services:</b></td>
+              </div>
+              <div class="col-xs-6 col-md-6">
+                <!-- <a ng-if="services(item).length>0" ng-href="" ng-repeat="service in services(item)">[[service]]<br></a> -->
+                <span ng-if="item.services.services_present">[[item.services.services_list]]</span>
+                <span ng-if="!item.services.services_present">[[item.services.services_list]]</span>
+                <!-- <td>[[services(item)]]</td> -->
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="text-center"> 
+            <button class="btn btn-info btn-md btn-block" ng-click="cancel()">OK</button> 
+          </div>  
+        </div>

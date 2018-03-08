@@ -1,0 +1,190 @@
+<head>
+  <style type="text/css">
+
+  /*  USE TO EMULATE INLINE CSS*/
+    .collapsedoption {
+      display: block !important;
+    }
+    #simple-dropdown{
+      color:white;
+    }
+    #simple-dropdown:hover{
+      
+    }
+/*@media screen and (max-width: 380px) {
+  #userButton{
+    float: left;
+    margin-top: 25px;
+  }
+}
+*/
+
+    @media screen and (min-width: 768px) {
+      .collapsedoption {
+        display:none !important;
+      }
+
+    }
+
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:35px !important; 
+    padding-bottom:0 !important;
+    height: 80px;
+}
+.navbar {min-height:80px !important;}
+  .navbar-fixed-top{
+    
+/*  -webkit-box-shadow: 0 10px 5px #888888;
+  -moz-box-shadow: 0 10px 5px #888888;*/
+  box-shadow: 0 2px 5px #888888;
+  }
+    
+    .navbar .navbar-collapse {
+      text-align: center;
+      
+    /*overflow-y: hidden;*/
+  }
+/*  .navbar-header, .navbar-nav{
+    font-size: 20px;
+    padding-top: 30px;
+  }*/
+
+.icon-bar {
+   background-color:black !important;
+
+}
+
+.navbar-toggle{
+
+  border:2px solid black !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+}
+
+
+.user-toggle{
+  position: relative;
+float: right;
+padding: 9px 10px;
+margin-top: 8px;
+margin-bottom: 8px;
+background-color: transparent;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;
+
+}
+
+ #loggedUserDropdown{
+    padding-top: 15px;
+ }
+ .mainNavbar{
+    background:rgb(13,94,150);
+
+ }
+ nav li a{
+  color:white;
+ }
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #f00; /* Changes regular toggle color */
+}
+.navbar-toggle{
+  border: 2px solid white !important;
+
+}
+.navbar-toggle span{
+  border: 1px solid white !important;
+}
+.navbar-brand svg{
+  margin-top: -25px;
+}
+
+  </style>
+</head>
+<nav class="navbar navbar-fixed-top mainNavbar" ng-controller="navBarController">
+  <div class="container-fluid"><!-- ng-app="mainAppAngular"  ng-cloak-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- <div class="navbar-header"> -->
+      <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed;navbar_manipulated=true" ng-show ="!userAuthenticated">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+<!-- 
+        <img id="inicioLogo" ng-src="static/img/logos/navbarlogo.svg" style="width:100px;max-height:80px;float:left;margin-top:-30px;padding-top:-30px;" class="img-responsive" alt="..."> -->
+      <a href="[[ brandUrl ]]" class="navbar-brand" > 
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="175" height="55" viewBox="0 0 175 55">
+          <image xlink:href="data:img/png;base64,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" width="175" height="55"/>
+        </svg>
+
+        <!-- <logo-condominioaldia scale="0.015"></logo-condominioaldia> -->
+      </a>
+<div class="navbar-header navbar-right" id="loggedUserDropdown">
+  
+    <!-- Simple dropdown -->
+  <ul id="userDataContainer" resize-font-to-fit="userDataContainer" style="float:right;padding-left:0px;white-space: nowrap;" >
+       <span class="dropdown-menu-left" uib-dropdown on-toggle="toggled(open)"  id="userButton" ng-show ="userAuthenticated">
+        <a href id="simple-dropdown" uib-dropdown-toggle >
+          <i  class="fa fa-user fa-3x"></i>
+
+         <span >[[ userName()|capfirstlettereachword ]]<span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+          </span>
+        </a>
+        <ul class="dropdown-menu pull-right" uib-dropdown-menu aria-labelledby="simple-dropdown">
+          <li>
+
+            <a href ="#/auctionproducts"><span style="margin-right:10px;color:rgb(34,86,151);"> <i class="fa fa-product-hunt fa-2x"></i></span>1- Register Your Purchases</a>
+
+            <a href ="#/editauctionproducts"><span style="margin-right:10px;color:rgb(34,86,151);"> <i class="fa fa-book fa-2x"></i></span>2- Manage Orders</a>
+
+            <a href ="#/payments1">
+              <span style="margin-right:10px;color:rgb(34,86,151);"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+              </span>3- Shopping Cart
+            </a>
+
+            <a href ="#/profile"><span style="margin-right:10px;"> <i class="fa fa-cog fa-2x"></i></span>Account Settings</a>
+
+            <!-- <a href><span style="margin-right:10px;"> <i class="fa fa-users fa-2x"></i></span>Invite Friends</a> -->
+            <a href ng-click="logout()"><span style="margin-right:10px;"> <i class="fa fa-sign-out fa-2x"></i></span>Log Out</a>
+
+          </li>
+        </ul>
+      </span>
+
+  </ul>
+</div>
+
+
+
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" uib-collapse="navCollapsed" element-on-resize ="toggleCollapse()" ng-click = "navbarToggler()" ng-show="!userAuthenticated" >
+
+
+
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li><a href="#/login">SIGN IN</a></li>-->
+            <li><a href="#/login" ng-show ="!userAuthenticated">SIGN IN</a></li>
+            <li><a href="#/join" ng-show ="!userAuthenticated">JOIN</a></li>
+
+          </ul>
+
+          <ul class="nav navbar-nav">
+            <li><a href="#/howitworks" ng-show="!userAuthenticated">HOW IT WORKS</a></li>
+            <!-- <li><a href="#" ng-show="!userAuthenticated">FIND SHIPMENTS</a></li> -->
+<!--             <li><a href="#/about" ng-if="!userAuthenticated">ABOUT</a></li>
+            <li class="collapsedoption"><a href="#">HELP</a></li>
+            <li class="collapsedoption"><a href="#">COMPANY</a></li>
+            <li class="collapsedoption"><a href="#">CAREERS</a></li>
+            <li class="collapsedoption"><a href="#">PRESS</a></li>
+            <li class="collapsedoption"><a href="#">BLOG</a></li>
+            <li class="collapsedoption"><a href="#">CATEGORIES</a></li> -->
+          </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+

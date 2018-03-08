@@ -1,0 +1,78 @@
+<head>
+	<style type="text/css">
+		body.use-new-fonts :not(.hmpg-title-header) {
+		    font-family: 'Roboto',Arial,Helvetica,sans-serif;
+		}
+		.main-title{
+			background-color: rgb(13,94,150);
+			color: white;
+			font-size: 30px;
+			font-weight: bold;
+			border-radius: 10px;
+			padding: 10px;
+		}
+	</style>
+</head>
+<div class="container">
+	
+
+<div class="row">
+<section id="carousel">
+                        <div class="page-header">
+                          <h1 class="main-title">[[auction_details.title|capitalize]]<!-- <small>
+                              (<a target="_blank" href="https://github.com/angular-ui/bootstrap/tree/master/src/carousel">ui.bootstrap.carousel</a>)
+                          </small> -->
+                          </h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+           
+
+
+  <div style="height: 305px">
+  	<img ng-src="[[auction_details.image]]" style="margin: auto;" class="img-responsive" alt="no image">
+   </div>
+  <div class="row">
+	  <div class="col-xs-12 col-sm-12">
+	  	<p>We offer our premium services at various auction sites. If you don't see an auction site listed with us. Make sure you write us a message in our live chat, or drop us an email and we will make it our mission to tend to your request!</p>
+	  </div>
+  
+<!--     <div class="col-md-6">
+      <button type="button" class="btn btn-info" ng-click="addSlide()">Add Slide</button>
+      <button type="button" class="btn btn-info" ng-click="randomize()">Randomize slides</button>
+      <div class="checkbox">
+        <label>
+          <input ng-model="noWrapSlides" class="ng-pristine ng-untouched ng-valid ng-empty" type="checkbox">
+          Disable Slide Looping
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      Interval, in milliseconds: <input class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="myInterval" type="number">
+      <br>Enter a negative number or 0 to stop the interval.
+    </div> -->
+  </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                            	<h3 id="uib-carousel-settings">Auction information:</h3>
+                                <p>Hosted by:  <b>[[auction_details.host|capitalize]]</b>.</p>
+<address>
+<!--   <strong>Twitter, Inc.</strong><br> -->
+  [[auction_details.address|capitalize]]<br>
+  [[auction_details.city|capitalize]], [[auction_details.state_providence|capitalize]] [[auction_details.zip_code]]<br>
+  <abbr title="Phone">P:</abbr> (123) 456-7890
+</address>
+<!-- <p>Use a <code>&lt;uib-carousel&gt;</code> element with <code>&lt;uib-slide&gt;</code> elements inside it.</p> -->
+<h3 id="uib-carousel-settings">Auction date:</h3>
+<ul>
+<li><p><b>Begins:</b>
+<i class="glyphicon glyphicon-eye-open"></i>
+
+[[auction_details.auction_begin|date:'MMMM dd, yyyy']]</p>
+</li>
+<li><p><b>Ends:</b>
+<i class="glyphicon glyphicon-eye-open"></i>
+[[auction_details.auction_end|date:'MMMM dd, yyyy']]</p>
+</li>

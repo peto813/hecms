@@ -1,0 +1,60 @@
+<tab-element tab-list="orderBookTabList"></tab-element>
+<panel-table 
+
+	table-search = "searchParam" 
+	search-field="true" 
+	panel-title="Order Book"
+	advanced-search = "true"
+	adv-search-fn = "searchBackend()"
+	search-date-field="true"
+	panel-title="Payment History"
+	>
+
+				<extra-element>
+
+				    <!-- Single button -->
+					    <label>payments in </label>
+					    <select ng-model="transclusion.dateRange" name="dateRange" ng-change="queryDate(transclusion.dateRange)">
+					    	<option value="last30">last 30 days</option>
+					    	<option value="months-6">last 6 months</option>
+					    	<option ng-repeat="year in yearRange| orderBy:'-'" value="[[year]]">[[year]]</option>
+					    </select>	
+
+				</extra-element>
+	<div class="table-responsive">
+	 		<div class="row" style="max-width:700px;margin:10px;">
+	 			<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+	 				<!--ng-click="purchases=productsList"-->
+					<button  title="Refresh" type="button" ng-click="refreshList()" class="btn btn-info">
+						<i class="fa fa-refresh" aria-hidden="true"></i>
+					</button>
+	 			</div>
+	 			<div ng-show="results_count > 0" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+	 				<!-- <button ng-click="searchByModal()" type="button" class="btn btn-info">Search by:</button> -->
+	 				<span><b>[[results_count]]</b> Results Found for : [[searchType]] "[[query_param]]"</span>
+	 			</div>
+	 		</div>
+	  	<table class="table">
+	  		<tr><!--ng-change="selectAllchx()"-->
+<!-- 	  			<td><input type="checkbox"  name="selectAll" ng-model="selectAll" ng-change="selectAllChx()"></td> -->
+	  			<td ng-repeat="column in colList"><b>[[column.title]]</b>
+	  				<i class="fa fa-caret-down" aria-hidden="true"></i>
+	  				<i class="fa fa-caret-up" aria-hidden="true"></i>
+	  			</td>
+	  		</tr>
+	  		<tbody>
+		  		<tr ng-repeat="row in paymentHistory|filter : searchParam as filtered">
+<!-- 	  				<td><input type="checkbox" ng-model="row.checked" name="checkboxrow[[$index]]" ng-checked="selectAll"></td> -->
+	  				<!-- <td><a ng-click="paymentDetails(row)" href="">[[row.id]]</a></td> -->
+	  				<td>[[row.id]]</td>
+	  				<td>[[row.amount|currency: '$' : 2]]</td>
+	  				<td>[[row.created|date:'dd MMMM yyyy']]</td>
+	 			  	<td>[[row.payment_type|capitalize]]</td>
+	 			  	<td>[[payment_status(row)]]</td>
+	  			</tr>			
+	  		</tbody>
+	  	</table>
+  	</div>
+
+
+</panel-table>

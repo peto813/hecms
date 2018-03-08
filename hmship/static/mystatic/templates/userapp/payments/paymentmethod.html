@@ -1,0 +1,69 @@
+<head>
+  <style type="text/css">
+  	form{
+  		max-width: 480px;
+  		margin: 0 auto; 
+  		border-radius: 5px;
+  		padding: 30px;
+  		background-color: rgb(246,245,244);
+  	}
+.page-payment-method.ng-enter, .page-payment-method.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.45s;
+
+  display:block;
+  width:100%;
+  border-left:1px solid black;
+
+  position:absolute;
+/*  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;*/
+}
+
+.page-payment-method.ng-enter {
+  left:100%;
+}
+.page-payment-method.ng-enter.ng-enter-active {
+  left:0;
+}
+.page-payment-method.ng-leave.ng-leave-active {
+  left:-100%;
+}
+  </style>
+</head>
+<form ng-submit="checkout()" name="paymentMethodForm" novalidate>
+	<h3 class="text-center">Please select a Payment Method</h3>
+
+
+<!-- <a href="/youraction" data-paypal-button="true">
+  <img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
+</a> -->
+
+	<div class="form-group has-feedback" ng-class="{ 'has-success' : paymentMethodForm.paymentMethod.$valid && (paymentMethodForm.paymentMethod.$touched || paymentMethodForm.$submitted), 'has-error' : !paymentMethodForm.paymentMethod.$valid && (paymentMethodForm.paymentMethod.$touched || paymentMethodForm.$submitted) }" style="margin-top:20px;">
+		<label for ="id_paymentMethod" class="sr-only">Select a payment Method</label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-usd"></i>
+			</span>
+			<select id="id_paymentMethod" ng-model="paymentMethod" name="paymentMethod" class="form-control input-lg" required>
+				<option value="">Payment Method</option>
+				<option value="paypal">Paypal</option>
+				<option value="deposit">Deposit/Transfer</option>
+			</select>			
+		</div>
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : paymentMethodForm.paymentMethod.$valid && paymentMethodForm.paymentMethod.$dirty, 'glyphicon-remove': (paymentMethodForm.paymentMethod.$invalid && (paymentMethodForm.paymentMethod.$dirty || paymentMethodForm.$submitted )) }" aria-hidden="true"></span>
+
+		 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="paymentMethodForm.paymentMethod.$error" style="color:maroon" role="alert">
+		   <code ng-if="paymentMethodForm.paymentMethod.$touched || paymentMethodForm.$submitted" ng-message="required">
+		   	<strong>Select a payment method</strong>
+		   </code>
+<!-- 		   <code ng-if="paymentMethodForm.paymentMethod.$touched || paymentMethodForm.$submitted" ng-message="pattern">
+		   	<strong>Invalid Field</strong>
+		   </code> -->
+		 </div>
+	</div>
+
+	<input style="margin-top: 30px;" type="submit" class="btn btn-lg btn-success btn-block" value="Checkout" ng-disabled="!paymentMethodForm.$valid">
+</form>

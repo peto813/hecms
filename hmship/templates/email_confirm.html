@@ -1,0 +1,63 @@
+
+{% load staticfiles %}
+
+
+<head>
+	<style type="text/css">
+		.containger{
+			height:100%;
+		}
+
+		body{
+			padding-top: 50px;
+		}
+		#formTab{
+			text-align: center;
+/*			width: 75%;*/
+			margin:0px auto;
+			min-width: 150px;
+			background-color: white;
+			border-radius: 10px;
+			border:1px solid black;
+			box-shadow: 10px 10px 5px #888888;
+			max-width: 680px;
+/*			margin-top: 150px;*/
+			padding: 20px; 
+			height: 400px;
+/*			padding-top:50px;*/
+		}
+		#serverAnswer {
+			font-weight: bold;
+			font-size: 30px;
+			margin-bottom: 18px;
+		}
+	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container justify-content-xs-center">
+		{% if account_verified == True %}
+			<div class="row">
+				<div class="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 col-lg-offset-3" >
+					<form id="formTab">
+						<h1 class="text-center"> Welcome to Hecms</h1>
+						<p class="text-center" id="serverAnswer"> Your email has been verified</p>
+						<i class="fa fa-check-circle fa-5x"></i>
+						<a href="/#login"><button type="button" class="btn btn-success btn-lg btn-block">Close browser Window</button></a>				
+					</form>
+				</div>
+			</div>
+		{% else %}
+			<div class="row">
+				<div class="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 col-lg-offset-3" >
+					<form id="formTab">
+						<p class="text-center" id="serverAnswer"> Ooops! an error ocurred!</p>
+						<button onclick="window.close();" class="btn btn-danger btn-lg btn-block">Close browser Window</button>			
+					</form>
+				</div>
+			</div>
+
+		{% endif %}
+	</div>
+</body>
+

@@ -1,0 +1,181 @@
+{% load staticfiles %}
+<head>
+	<style type="text/css">
+		body{
+			padding-top: 80px;
+		}
+		.subhead2{
+			font-size: 10px;
+			line-height: 10px;
+			text-transform: uppercase;			
+		}
+		.bottomGreyBorder{
+			    font-family: "Roboto",Arial,Helvetica,sans-serif;
+			    box-sizing: border-box;
+		}
+
+	</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body ng-app="inspectionReportApp" ng-controller="inspectionReportAppController">
+<div id="top"></div>
+<div class="container" >
+
+	<form enctype="multipart/form-data" ng-submit="postInspectionReport()" method="post" name="InspectionReportForm" id="InspectionReportForm" novalidate>{% csrf_token %}
+	<input type="text" name="inspection_id" value="{{inspection.id}}" hidden>
+		<div class="panel panel-default" style="padding:20px;">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading text-center" style="background: rgb(95,99,105);color:white;"><h3 style="font-weight:bold;">Inspection Report</h3></div>
+
+		  <div class="panel-body">
+				<div class="text-center">
+						{% if form_row.errors %}
+							{% for field in form_row %}
+							    {% for error in field.errors %}
+							    	<div class="alert alert-danger">
+							        	<code>{{ error|escape }}</code>
+							        </div>
+							    {% endfor %}
+							{% endfor %}
+						{% endif %}
+				</div>
+		  	<div class="row">
+				<div class="col-xs-4" style="margin-bottom:10px;"><a href="#submitButton">Submit</a></div>
+				{% for section in inspection.inspection_type.section.all %}
+					<div class="col-xs-4" style="margin-bottom:10px;"><a href="#section{{section.id}}">{{section}}</a></div>
+				{% endfor %}
+			</div>
+		  </div>
+
+{% for section in inspection.inspection_type.section.all %}
+	<h4 style="font-weight: bold;" id="section{{section.id}}">{{section.name.title}}</h4>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr class="bottomGreyBorder">
+						<td class="subhead2" ><b>Description</b></td>
+						<td class="subhead2" ><b>Rating</b></td>
+						<td class="subhead2" ><b>Details</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+	{% for row in section.inspection_types_sections_items_set.all %}
+					<tr>
+						<!-- <input type="text" name="pk_{{row.id}}" value="{{row.id}}" hidden> -->
+						<td width="35%">{{row.description}}</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_{{row.id}}">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_{{row.id}}" id="item_details_{{row.id}}"></td>
+						<td width="10%" > <!--ng-click="uploadPic({{row.id}})"-->
+
+<!-- 							<input type="file" id="item_pic_{{row.id}}" name="item_pic_{{row.id}}" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_{{row.id}}" id="item_pic_{{row.id}}" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+
+<label for="item_pic_{{row.id}}"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_{{row.id}}_x"></span>
+						</td>
+					</tr>
+	{% endfor %}
+
+				</tbody>
+			</table>
+
+{% endfor %}	
+
+		</div>
+		<input id="submitButton" type="submit" class="btn btn-block btn-success btn-lg" name="submitReport" value="Submit Inspection Report">
+	</form>
+
+</div>
+
+
+ <footer style="height:100px;">
+ 	<h4 class="text-center"><a href="#top">Top</a></h4>
+</footer> 
+
+
+<script src="{% static 'js/angular.min.js' %}"></script>
+ <script src="{% static 'js/ui-bootstrap-tpls.js' %}"></script>
+	<script type="text/javascript">
+		var inspectionReportApp = angular.module('inspectionReportApp',['ui.bootstrap']);
+
+		inspectionReportApp.config([
+		    '$interpolateProvider', function( $interpolateProvider ){
+		        $interpolateProvider.startSymbol('[[').endSymbol(']]'); 
+		    }
+		])
+
+
+		inspectionReportApp.controller('inspectionReportAppController', ['$scope', '$sce', '$timeout',
+			function( $scope, $sce,$timeout ){
+
+
+				$scope.viewPicture = function(){
+					console.log('view Picture')
+				}
+				$scope.selected_file = '';
+				$scope.uploadPic = function(row_id){
+					var element_id = 'item_pic_' + String(row_id);
+					//console.log(element_id)
+					var element = angular.element(document.getElementById(element_id));
+					console.log(element)
+					element[0].click()
+					//element.click()
+					//$scope.$apply()
+				}
+
+				$scope.htmlPopover = $sce.trustAsHtml(
+					'<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+
+				$scope.postInspectionReport = function(){
+					var confirm_submit_inspection = confirm('Are you sure you wish to submit this report? Once submitted it will be emailed to the customer');
+					if (confirm_submit_inspection){
+						var form = document.getElementById('InspectionReportForm').submit()
+					}
+				}
+		}])
+
+		inspectionReportApp.directive("fileread", [function () {
+		    return {
+		        scope: {
+		            fileread: "=",
+		            file_name : '='
+		        },
+		        link: function (scope, element, attributes) {
+		            element.bind("change", function (changeEvent) {
+
+		            	var element_id=attributes.id + '_x';
+		            	var file_name_element = document.getElementById(element_id)
+		            	file_name_element.innerHTML = changeEvent.target.files[0].name;
+		            	//console.log(peo.innerHTML)
+
+		            	//scope.file_name = changeEvent.target.files[0].name;
+		            	//console.log(changeEvent.target.files[0].name)
+		                // var reader = new FileReader();
+		                // reader.onload = function (loadEvent) {
+		                //     scope.$apply(function () {
+		                //         scope.fileread = loadEvent.target.result;
+		                //     });
+		                // }
+		                // reader.readAsDataURL(changeEvent.target.files[0]);
+		            });
+		        }
+		    }
+		}]);
+	</script>
+</body>
+

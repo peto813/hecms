@@ -1,0 +1,130 @@
+<head>
+    <style type="text/css">
+.jumbotron {
+background: rgb(34,85,150);
+color: #FFF;
+border-radius: 0px;
+}
+.jumbotron-sm { padding-top: 24px;
+padding-bottom: 24px; }
+.jumbotron small {
+color: #FFF;
+}
+.h1 small {
+font-size: 24px;
+}
+.fa-phone{
+    font-size:1.3em;
+}
+</style>
+
+</head>
+<div class="jumbotron jumbotron-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <h1 class="h1">
+                    Contact us <small>Or use our live chat!</small></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm">
+                <form ng-submit="sendEmail()" name="contactUsForm" novalidate>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback" ng-class="{ 'has-success' : contactUsForm.name.$valid && (contactUsForm.name.$touched || contactUsForm.$submitted || contactUsForm.name.$dirty), 'has-error' : !contactUsForm.name.$valid && (contactUsForm.name.$touched || contactUsForm.$submitted || contactUsForm.name.$dirty) }" >
+                            <label for="name">Name</label>
+                            <input ng-model="formData.name" type="text" class="form-control" name="name" id="name" placeholder="Enter name" required>
+                            <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : contactUsForm.name.$valid && ( contactUsForm.name.$dirty || contactUsForm.name.$touched ), 'glyphicon-remove': (contactUsForm.name.$invalid && (contactUsForm.name.$dirty || contactUsForm.$submitted || contactUsForm.name.$touched)) }" aria-hidden="true"></span>
+                             <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="contactUsForm.name.$error" style="color:maroon" role="alert">
+                               <code ng-if="contactUsForm.name.$touched || contactUsForm.$submitted" ng-message="required">
+                                <strong>This field is required</strong>
+                               </code>
+                             </div>
+                        </div>
+
+                        <div class="form-group has-feedback" ng-class="{ 'has-success' : contactUsForm.email.$valid && (contactUsForm.email.$touched || contactUsForm.$submitted || contactUsForm.email.$dirty), 'has-error' : !contactUsForm.email.$valid && (contactUsForm.email.$touched || contactUsForm.$submitted || contactUsForm.email.$dirty) }" >
+                            <label for="email">
+                                Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                <input name="email" ng-model="formData.email" type="email" class="form-control" id="email" placeholder="Enter email" required></div>
+
+                            <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : contactUsForm.email.$valid && ( contactUsForm.email.$dirty || contactUsForm.email.$touched ), 'glyphicon-remove': (contactUsForm.email.$invalid && (contactUsForm.email.$dirty || contactUsForm.$submitted || contactUsForm.email.$touched)) }" aria-hidden="true"></span>
+    
+                         <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="contactUsForm.email.$error" style="color:maroon" role="alert">
+                           <code ng-if="contactUsForm.email.$touched || contactUsForm.$submitted" ng-message="required">
+                            <strong>This field is required</strong>
+                           </code>
+                         </div>
+
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-success' : contactUsForm.subject.$valid && (contactUsForm.subject.$touched || contactUsForm.$submitted || contactUsForm.subject.$dirty), 'has-error' : !contactUsForm.subject.$valid && (contactUsForm.subject.$touched || contactUsForm.$submitted || contactUsForm.subject.$dirty) }" >
+                            <label for="subject">
+                                Subject</label>
+                            <select id="subject" ng-model="formData.subject" name="subject" class="form-control" required>
+                                <option value="" selected="">Choose One:</option>
+                                <option value="service">General Customer Service</option>
+                                <option value="suggestions">Suggestions</option>
+                                <option value="product">Product Support</option>
+                            </select>
+                            <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : contactUsForm.subject.$valid && ( contactUsForm.subject.$dirty || contactUsForm.subject.$touched ), 'glyphicon-remove': (contactUsForm.subject.$invalid && (contactUsForm.subject.$dirty || contactUsForm.$submitted || contactUsForm.subject.$touched)) }" aria-hidden="true"></span>
+                            <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="contactUsForm.subject.$error" style="color:maroon" role="alert">
+                               <code ng-if="contactUsForm.subject.$touched || contactUsForm.$submitted" ng-message="required">
+                                <strong>This field is required</strong>
+                               </code>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback" ng-class="{ 'has-success' : contactUsForm.message.$valid && (contactUsForm.message.$touched || contactUsForm.$submitted || contactUsForm.message.$dirty), 'has-error' : !contactUsForm.message.$valid && (contactUsForm.message.$touched || contactUsForm.$submitted || contactUsForm.message.$dirty) }" >
+                            <label for="name">
+                                Message</label>
+                            <textarea ng-model="formData.message" name="message" id="message" class="form-control" rows="9" cols="25" required
+                                placeholder="Message"></textarea>
+                            <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="contactUsForm.message.$error" style="color:maroon" role="alert">
+                               <code ng-if="contactUsForm.message.$touched || contactUsForm.$submitted" ng-message="required">
+                                <strong>This field is required</strong>
+                               </code>
+                             </div>                        
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input ng-disabled="!contactUsForm.$valid" type="submit" class="btn btn-primary pull-right" id="btnContactUs" value="Send Message">
+                            
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form>
+            <legend><h2><span class="glyphicon glyphicon-globe"></span> Our office</h2></legend>
+            <address>
+                <strong>Hecms, Corp</strong><br>
+                719 Bradfield Rd<br>
+                Houston, TX 77060<br>
+                <hr>
+                Plano Branch    <br>
+                3901 N CENTRAL EXPWY <br>
+                PLANO TEXAS 75023<br>
+                <hr>
+                <abbr title="Phone">
+                     <i class="fa fa-phone"></i></abbr>
+                 (469) 996-5574 ( English )<br>
+                <abbr title="Phone">
+                     <i class="fa fa-phone"></i></abbr>
+                 (407) 818-0886 ( Español )
+            </address>
+
+            </form>
+        </div>
+    </div>
+</div>

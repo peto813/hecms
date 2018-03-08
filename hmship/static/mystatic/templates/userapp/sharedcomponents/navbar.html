@@ -1,0 +1,95 @@
+<head>
+  <style type="text/css">
+
+  /*  USE TO EMULATE INLINE CSS*/
+    .collapsedoption {
+      display: block !important;
+    }
+
+    @media screen and (min-width: 768px) {
+      .collapsedoption {
+        display:none !important;
+      }
+
+    }
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:35px !important; 
+    padding-bottom:0 !important;
+    height: 80px;
+}
+.navbar {min-height:80px !important;}
+  .navbar-fixed-top{
+    
+/*  -webkit-box-shadow: 0 10px 5px #888888;
+  -moz-box-shadow: 0 10px 5px #888888;*/
+  box-shadow: 0 2px 5px #888888;
+  }
+/*    .navbar-collapse.in {
+    overflow-y: hidden;
+  }*/
+/*  .navbar-header, .navbar-nav{
+    font-size: 20px;
+    padding-top: 30px;
+  }*/
+  </style>
+</head>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid"><!-- ng-app="mainAppAngular" ng-controller="navBarController" ng-cloak-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" style="padding-top:20px;">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand"> 
+        <img id="inicioLogo" src="http://www.vectortemplates.com/raster/superman-logo-012a.png" style="width:100px;max-height:80px;float:left;margin-top:-30px;padding-top:-30px;" class="img-responsive" alt="No hay logo">
+        <!-- <logo-condominioaldia scale="0.015"></logo-condominioaldia> -->
+      </a><!--navbar-brand-->
+    </div><!--navbar header-->
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" uib-collapse="navCollapsed" style="text-align:center;">
+
+
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'account_login' %}">SIGN IN</a></li>
+            <li><a href="#join">JOIN</a></li>
+            <li><a href="/accounts/pepe">JOIN</a></li>
+            <li><a href="#">HELP</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav">
+            <li><a href="#/howitworks">HOW IT WORKS</a></li>
+            <li><a href="#">FIND SHIPMENTS</a></li>
+            <li><a href="#">SHIP</a></li>
+            <li class="collapsedoption"><a href="#">HELP</a></li>
+            <li class="collapsedoption"><a href="#">COMPANY</a></li>
+            <li class="collapsedoption"><a href="#">CAREERS</a></li>
+            <li class="collapsedoption"><a href="#">PRESS</a></li>
+            <li class="collapsedoption"><a href="#">BLOG</a></li>
+            <li class="collapsedoption"><a href="#">CATEGORIES</a></li>
+          </ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        <li uib-dropdown>
+
+
+
+<!--         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,901 @@
+
+<head>
+	<style type="text/css">
+		body{
+			padding-top: 80px;
+		}
+		.subhead2{
+			font-size: 10px;
+			line-height: 10px;
+			text-transform: uppercase;			
+		}
+		.bottomGreyBorder{
+			    font-family: "Roboto",Arial,Helvetica,sans-serif;
+			    box-sizing: border-box;
+		}
+
+	</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body ng-app="inspectionReportApp" ng-controller="inspectionReportAppController">
+<div id="top"></div>
+<div class="container" >
+	<form enctype="multipart/form-data" ng-submit="postInspectionReport()" method="post" name="InspectionReportForm" id="InspectionReportForm" novalidate><input type='hidden' name='csrfmiddlewaretoken' value='pnJKpsV5KYqTYbauz5qc52dh0evmU7Q9MaiJcFUSJtdeWld3uG07j0fojkyOQLNk' />
+	<input type="text" name="inspection_id" value="3" hidden>
+		<div class="panel panel-default" style="padding:20px;">
+		  <!-- Default panel contents -->
+		  <div class="panel-heading text-center" style="background: rgb(95,99,105);color:white;"><h3 style="font-weight:bold;">Inspection Report</h3></div>
+		  <div class="panel-body">
+
+		  	<div class="row">
+				<div class="col-xs-4" style="margin-bottom:10px;"><a href="#submitButton">Submit</a></div>
+				
+					<div class="col-xs-4" style="margin-bottom:10px;"><a href="#section1">General Appearance</a></div>
+				
+					<div class="col-xs-4" style="margin-bottom:10px;"><a href="#section3">Safety</a></div>
+				
+					<div class="col-xs-4" style="margin-bottom:10px;"><a href="#section4">Control Station</a></div>
+				
+					<div class="col-xs-4" style="margin-bottom:10px;"><a href="#section5">Engine</a></div>
+				
+			</div>
+
+		  </div>
+
+
+	<h4 style="font-weight: bold;" id="section1">General Appearance</h4>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr class="bottomGreyBorder">
+						<td class="subhead2" ><b>Description</b></td>
+						<td class="subhead2" ><b>Rating</b></td>
+						<td class="subhead2" ><b>Details</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+	
+					<tr>
+						<!-- <input type="text" name="pk_1" value="1" hidden> -->
+						<td width="35%">Serial Number / VIN</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_1">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_1" id="item_details_1"></td>
+						<td width="10%" > <!--ng-click="uploadPic(1)"-->
+
+<!-- 							<input type="file" id="item_pic_1" name="item_pic_1" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_1" id="item_pic_1" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_1"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_1_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_2" value="2" hidden> -->
+						<td width="35%">Safety Certification Label</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_2">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_2" id="item_details_2"></td>
+						<td width="10%" > <!--ng-click="uploadPic(2)"-->
+
+<!-- 							<input type="file" id="item_pic_2" name="item_pic_2" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_2" id="item_pic_2" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_2"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_2_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_3" value="3" hidden> -->
+						<td width="35%">Safety Certification Report</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_3">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_3" id="item_details_3"></td>
+						<td width="10%" > <!--ng-click="uploadPic(3)"-->
+
+<!-- 							<input type="file" id="item_pic_3" name="item_pic_3" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_3" id="item_pic_3" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_3"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_3_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_4" value="4" hidden> -->
+						<td width="35%">Load Chart</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_4">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_4" id="item_details_4"></td>
+						<td width="10%" > <!--ng-click="uploadPic(4)"-->
+
+<!-- 							<input type="file" id="item_pic_4" name="item_pic_4" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_4" id="item_pic_4" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_4"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_4_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_5" value="5" hidden> -->
+						<td width="35%">Paint</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_5">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_5" id="item_details_5"></td>
+						<td width="10%" > <!--ng-click="uploadPic(5)"-->
+
+<!-- 							<input type="file" id="item_pic_5" name="item_pic_5" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_5" id="item_pic_5" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_5"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_5_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_6" value="6" hidden> -->
+						<td width="35%">Sheet Metal (fiberglass) Condition</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_6">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_6" id="item_details_6"></td>
+						<td width="10%" > <!--ng-click="uploadPic(6)"-->
+
+<!-- 							<input type="file" id="item_pic_6" name="item_pic_6" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_6" id="item_pic_6" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_6"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_6_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_7" value="7" hidden> -->
+						<td width="35%">Steps/Ladders</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_7">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_7" id="item_details_7"></td>
+						<td width="10%" > <!--ng-click="uploadPic(7)"-->
+
+<!-- 							<input type="file" id="item_pic_7" name="item_pic_7" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_7" id="item_pic_7" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_7"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_7_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_8" value="8" hidden> -->
+						<td width="35%">Hand Rails</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_8">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_8" id="item_details_8"></td>
+						<td width="10%" > <!--ng-click="uploadPic(8)"-->
+
+<!-- 							<input type="file" id="item_pic_8" name="item_pic_8" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_8" id="item_pic_8" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_8"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_8_x"></span>
+						</td>
+					</tr>
+	
+
+				</tbody>
+			</table>
+
+
+	<h4 style="font-weight: bold;" id="section3">Safety</h4>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr class="bottomGreyBorder">
+						<td class="subhead2" ><b>Description</b></td>
+						<td class="subhead2" ><b>Rating</b></td>
+						<td class="subhead2" ><b>Details</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+	
+					<tr>
+						<!-- <input type="text" name="pk_9" value="9" hidden> -->
+						<td width="35%">Travel Alarm</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_9">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_9" id="item_details_9"></td>
+						<td width="10%" > <!--ng-click="uploadPic(9)"-->
+
+<!-- 							<input type="file" id="item_pic_9" name="item_pic_9" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_9" id="item_pic_9" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_9"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_9_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_10" value="10" hidden> -->
+						<td width="35%">Horn</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_10">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_10" id="item_details_10"></td>
+						<td width="10%" > <!--ng-click="uploadPic(10)"-->
+
+<!-- 							<input type="file" id="item_pic_10" name="item_pic_10" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_10" id="item_pic_10" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_10"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_10_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_11" value="11" hidden> -->
+						<td width="35%">Seat Belts</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_11">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_11" id="item_details_11"></td>
+						<td width="10%" > <!--ng-click="uploadPic(11)"-->
+
+<!-- 							<input type="file" id="item_pic_11" name="item_pic_11" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_11" id="item_pic_11" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_11"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_11_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_12" value="12" hidden> -->
+						<td width="35%">Current Safety Manual</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_12">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_12" id="item_details_12"></td>
+						<td width="10%" > <!--ng-click="uploadPic(12)"-->
+
+<!-- 							<input type="file" id="item_pic_12" name="item_pic_12" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_12" id="item_pic_12" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_12"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_12_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_13" value="13" hidden> -->
+						<td width="35%">Current Operator/Maintenance Manual</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_13">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_13" id="item_details_13"></td>
+						<td width="10%" > <!--ng-click="uploadPic(13)"-->
+
+<!-- 							<input type="file" id="item_pic_13" name="item_pic_13" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_13" id="item_pic_13" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_13"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_13_x"></span>
+						</td>
+					</tr>
+	
+
+				</tbody>
+			</table>
+
+
+	<h4 style="font-weight: bold;" id="section4">Control Station</h4>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr class="bottomGreyBorder">
+						<td class="subhead2" ><b>Description</b></td>
+						<td class="subhead2" ><b>Rating</b></td>
+						<td class="subhead2" ><b>Details</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+	
+					<tr>
+						<!-- <input type="text" name="pk_14" value="14" hidden> -->
+						<td width="35%">Mirrors</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_14">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_14" id="item_details_14"></td>
+						<td width="10%" > <!--ng-click="uploadPic(14)"-->
+
+<!-- 							<input type="file" id="item_pic_14" name="item_pic_14" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_14" id="item_pic_14" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_14"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_14_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_15" value="15" hidden> -->
+						<td width="35%">Glass</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_15">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_15" id="item_details_15"></td>
+						<td width="10%" > <!--ng-click="uploadPic(15)"-->
+
+<!-- 							<input type="file" id="item_pic_15" name="item_pic_15" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_15" id="item_pic_15" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_15"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_15_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_16" value="16" hidden> -->
+						<td width="35%">Seats/Armrests</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_16">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_16" id="item_details_16"></td>
+						<td width="10%" > <!--ng-click="uploadPic(16)"-->
+
+<!-- 							<input type="file" id="item_pic_16" name="item_pic_16" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_16" id="item_pic_16" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_16"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_16_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_17" value="17" hidden> -->
+						<td width="35%">Load Moment Indicator</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_17">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_17" id="item_details_17"></td>
+						<td width="10%" > <!--ng-click="uploadPic(17)"-->
+
+<!-- 							<input type="file" id="item_pic_17" name="item_pic_17" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_17" id="item_pic_17" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_17"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_17_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_18" value="18" hidden> -->
+						<td width="35%">Hydraulic Controls</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_18">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_18" id="item_details_18"></td>
+						<td width="10%" > <!--ng-click="uploadPic(18)"-->
+
+<!-- 							<input type="file" id="item_pic_18" name="item_pic_18" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_18" id="item_pic_18" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_18"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_18_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_19" value="19" hidden> -->
+						<td width="35%">Drivetrain Controls</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_19">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_19" id="item_details_19"></td>
+						<td width="10%" > <!--ng-click="uploadPic(19)"-->
+
+<!-- 							<input type="file" id="item_pic_19" name="item_pic_19" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_19" id="item_pic_19" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_19"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_19_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_20" value="20" hidden> -->
+						<td width="35%">Oil Pressure</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_20">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_20" id="item_details_20"></td>
+						<td width="10%" > <!--ng-click="uploadPic(20)"-->
+
+<!-- 							<input type="file" id="item_pic_20" name="item_pic_20" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_20" id="item_pic_20" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_20"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_20_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_21" value="21" hidden> -->
+						<td width="35%">Warning Lights</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_21">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_21" id="item_details_21"></td>
+						<td width="10%" > <!--ng-click="uploadPic(21)"-->
+
+<!-- 							<input type="file" id="item_pic_21" name="item_pic_21" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_21" id="item_pic_21" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_21"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_21_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_22" value="22" hidden> -->
+						<td width="35%">Gauges</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_22">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_22" id="item_details_22"></td>
+						<td width="10%" > <!--ng-click="uploadPic(22)"-->
+
+<!-- 							<input type="file" id="item_pic_22" name="item_pic_22" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_22" id="item_pic_22" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_22"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_22_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_23" value="23" hidden> -->
+						<td width="35%">Hoist Brakes</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_23">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_23" id="item_details_23"></td>
+						<td width="10%" > <!--ng-click="uploadPic(23)"-->
+
+<!-- 							<input type="file" id="item_pic_23" name="item_pic_23" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_23" id="item_pic_23" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_23"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_23_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_24" value="24" hidden> -->
+						<td width="35%">Hour Meter/Odometer (Start)</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_24">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_24" id="item_details_24"></td>
+						<td width="10%" > <!--ng-click="uploadPic(24)"-->
+
+<!-- 							<input type="file" id="item_pic_24" name="item_pic_24" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_24" id="item_pic_24" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_24"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_24_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_25" value="25" hidden> -->
+						<td width="35%">Hour Meter/Odometer</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_25">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_25" id="item_details_25"></td>
+						<td width="10%" > <!--ng-click="uploadPic(25)"-->
+
+<!-- 							<input type="file" id="item_pic_25" name="item_pic_25" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_25" id="item_pic_25" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_25"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_25_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_26" value="26" hidden> -->
+						<td width="35%">Air Conditioner</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_26">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_26" id="item_details_26"></td>
+						<td width="10%" > <!--ng-click="uploadPic(26)"-->
+
+<!-- 							<input type="file" id="item_pic_26" name="item_pic_26" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_26" id="item_pic_26" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_26"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_26_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_27" value="27" hidden> -->
+						<td width="35%">Heater</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_27">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_27" id="item_details_27"></td>
+						<td width="10%" > <!--ng-click="uploadPic(27)"-->
+
+<!-- 							<input type="file" id="item_pic_27" name="item_pic_27" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_27" id="item_pic_27" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_27"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_27_x"></span>
+						</td>
+					</tr>
+	
+					<tr>
+						<!-- <input type="text" name="pk_28" value="28" hidden> -->
+						<td width="35%">Limited Function Check</td>
+						<td width="15%">
+						<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+							<select class="form-control input-sm" name="item_rating_28">
+								<option value="" >Select</option>
+								<option value="4">No visible wear or defects</option>
+								<option value="3">Performs within tolerances expected for age and type of item</option>
+								<option value="2">Although performing, needs repair or replacement</option>
+								<option value="1">Needs immediate repair/replacement</option>
+							</select>
+						</td>
+						<td width="40%">
+							<input placeholder="Details" type="text" class="form-control" name="item_details_28" id="item_details_28"></td>
+						<td width="10%" > <!--ng-click="uploadPic(28)"-->
+
+<!-- 							<input type="file" id="item_pic_28" name="item_pic_28" style="visibility:hidden;position:absolute;top:0;left:0">
+							<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+<input type="file" fileread name="item_pic_28" id="item_pic_28" class="inputfile" style="visibility:hidden;position:absolute;top:0;left:0" file_name = 'selected_file'>
+<label for="item_pic_28"><i style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+<span style="cursor:pointer;" ng-click="viewPicture()" id = "item_pic_28_x"></span>
+						</td>
+					</tr>
+	
+
+				</tbody>
+			</table>
+
+
+	<h4 style="font-weight: bold;" id="section5">Engine</h4>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr class="bottomGreyBorder">
+						<td class="subhead2" ><b>Description</b></td>
+						<td class="subhead2" ><b>Rating</b></td>
+						<td class="subhead2" ><b>Details</b></td>
+						
+					</tr>
+				</thead>
+				<tbody>
+	
+
+				</tbody>
+			</table>
+
+	
+
+		</div>
+		<input id="submitButton" type="submit" class="btn btn-block btn-success btn-lg" name="submitReport" value="Submit Inspection Report">
+	</form>
+
+</div>
+
+
+ <footer style="height:100px;">
+ 	<h4 class="text-center"><a href="#top">Top</a></h4>
+</footer> 
+
+
+<script src="/static/js/angular.min.js"></script>
+ <script src="/static/js/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript">
+		var inspectionReportApp = angular.module('inspectionReportApp',['ui.bootstrap']);
+
+		inspectionReportApp.config([
+		    '$interpolateProvider', function( $interpolateProvider ){
+		        $interpolateProvider.startSymbol('[[').endSymbol(']]'); 
+		    }
+		])
+
+
+		inspectionReportApp.controller('inspectionReportAppController', ['$scope', '$sce', '$timeout',
+			function( $scope, $sce,$timeout ){
+
+
+				$scope.viewPicture = function(){
+					console.log('view Picture')
+				}
+				$scope.selected_file = '';
+				$scope.uploadPic = function(row_id){
+					var element_id = 'item_pic_' + String(row_id);
+					//console.log(element_id)
+					var element = angular.element(document.getElementById(element_id));
+					console.log(element)
+					element[0].click()
+					//element.click()
+					//$scope.$apply()
+				}
+
+				$scope.htmlPopover = $sce.trustAsHtml(
+					'<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+
+				$scope.postInspectionReport = function(){
+					var confirm_submit_inspection = confirm('Are you sure you wish to submit this report? Once submitted it will be emailed to the customer');
+					if (confirm_submit_inspection){
+						var form = document.getElementById('InspectionReportForm').submit()
+					}
+				}
+		}])
+
+		inspectionReportApp.directive("fileread", [function () {
+		    return {
+		        scope: {
+		            fileread: "=",
+		            file_name : '='
+		        },
+		        link: function (scope, element, attributes) {
+		            element.bind("change", function (changeEvent) {
+
+		            	var element_id=attributes.id + '_x';
+		            	var file_name_element = document.getElementById(element_id)
+		            	file_name_element.innerHTML = changeEvent.target.files[0].name;
+		            	//console.log(peo.innerHTML)
+
+		            	//scope.file_name = changeEvent.target.files[0].name;
+		            	//console.log(changeEvent.target.files[0].name)
+		                // var reader = new FileReader();
+		                // reader.onload = function (loadEvent) {
+		                //     scope.$apply(function () {
+		                //         scope.fileread = loadEvent.target.result;
+		                //     });
+		                // }
+		                // reader.readAsDataURL(changeEvent.target.files[0]);
+		            });
+		        }
+		    }
+		}]);
+	</script>
+</body>
+

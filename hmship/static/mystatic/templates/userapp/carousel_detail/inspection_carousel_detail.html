@@ -1,0 +1,174 @@
+<head>
+	<style type="text/css">
+		body.use-new-fonts :not(.hmpg-title-header) {
+		    font-family: 'Roboto',Arial,Helvetica,sans-serif;
+		}
+		.main-title{
+			background-color: rgb(13,94,150);
+			color: white;
+			font-size: 30px;
+			font-weight: bold;
+			border-radius: 10px;
+			padding: 10px;
+		}
+
+		.img-responsive{
+			margin:auto;
+			height:305px;
+			width: 100%;
+		/*	margin-bottom: 20px;
+			margin-top: 20px;
+		}*/
+		}
+		.details{
+		 	font-size: 20px;
+		}
+
+		.container{
+			font-family: 'Roboto Condensed', Tahoma, Verdana, sans-serif;
+		}
+		.subhead2{
+			font-size: 10px;
+			line-height: 10px;
+			text-transform: uppercase;			
+		}
+		.bottomGreyBorder{
+			    font-family: "Roboto",Arial,Helvetica,sans-serif;
+			    box-sizing: border-box;
+		}
+
+
+.oneStar{
+	color:red;
+}
+.twoStar{
+	color:orange;
+}
+.threeStar{
+	color:gold;
+}
+.fourStar{
+	color:green;
+}
+
+.offstate{
+	color:white!important;
+}
+	</style>
+
+
+</head>
+
+
+<div class="container">
+	
+    <div class="page-header">
+      <h1 class="main-title">Inspection Report</h1>
+    </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+			  <div style="height: 305px">
+			  	<!-- <img ng-src="[[auction_details.image]]" style="margin: auto;" class="img-responsive" alt="no image"> -->
+				  <div style="height: 305px">
+				    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+				      <div uib-slide ng-repeat="slide in gallery track by $index" index="$index">
+				        <img ng-src="[[slide.item_picture]]" class="img-responsive">
+				        <div class="carousel-caption">
+			<!-- 	          <h4>Slide [[slide.id]]</h4>
+				          <p>[[slide.text]]</p> -->
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+			   </div>
+    	</div>
+    	<div class="col-xs-12 col-sm-6">
+    		<h2>Inspection details</h2>
+    		<div class="row details">
+    			<div class="col-xs-6"><b>Date:</b></div>
+    			<div class="col-xs-6"> [[report.created|date:'short']]</div>
+    		</div>
+    		<div class="row details">
+    			<div class="col-xs-6"><b>Description:</b></div>
+    			<div class="col-xs-6"> [[report.inspection.description|capitalize]]</div>
+    		</div>
+    		<div class="row details">
+    			<div class="col-xs-6"><b>Type:</b></div>
+    			<div class="col-xs-6"> [[report.inspection.inspection_type.name|capitalize]]</div>
+    		</div>
+    		<div class="row details">
+    			<div class="col-xs-6"><b>Price:</b></div>
+    			<div class="col-xs-6"> [[report.inspection.inspection_type.price|currency:'$':2]]</div>
+    		</div>
+    	</div>
+    </div>
+  	<div class="row" style="margin-top: 20px;">
+	  <div class="col-xs-12">
+	  	<h3 class="text-center">For further details regarding this inspection check out the form below!</h3>
+	  </div>
+  	</div>
+  	<hr>
+
+  	<div>
+
+		<input type="text" name="inspection_id" value="{{inspection.id}}" hidden>
+			<div class="panel panel-default" style="padding:20px;">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading text-center" style="background: rgb(95,99,105);color:white;"><h3 style="font-weight:bold;">Inspection Report</h3></div>
+			  <div class="panel-body">
+
+			  	<div class="row">
+												<!--HEADER -->
+					<div ng-repeat="section in report.sections" class="col-xs-4" style="margin-bottom:10px;"><a href="#section[[section.id]]">[[section.name]]</a></div>
+				</div>
+
+				<div ng-repeat="section in report.sections" id="section[[section.id]]">
+					<h4  style="font-weight: bold;" >[[section.name|capitalize]]</h4>
+
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr class="bottomGreyBorder">
+								<td class="subhead2" ><b>Description</b></td>
+								<td class="subhead2" ><b>Rating</b></td>
+								<td class="subhead2" ><b>Details</b></td>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in report.rows" ng-if="row.section==section.name">
+								<!-- <input type="text" name="pk_{{row.id}}" value="{{row.id}}" hidden> -->
+								<td width="35%">[[row.description]]</td>
+								<td width="15%">
+								<!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+<!-- 									<select class="form-control input-sm" name="item_rating_[[row.id]]">
+										<option value="" >Select</option>
+										<option value="4">No visible wear or defects</option>
+										<option value="3">Performs within tolerances expected for age and type of item</option>
+										<option value="2">Although performing, needs repair or replacement</option>
+										<option value="1">Needs immediate repair/replacement</option>
+									</select> -->
+									<span ng-class="{ 'oneStar': row.rating=='1', 'twoStar': row.rating=='2','threeStar': row.rating=='3','fourStar': row.rating=='4' }"  uib-rating ng-model="row.rating" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" state-off="'offstate'" titles="['One', 'Two', 'Three']" uib-tooltip-template="'static/templates/userapp/partials/TooltipTemplate1.html'"> aria-labelledby="default-rating"></span>
+								</td>
+								<td width="40%">
+				<!-- 					<input placeholder="Details" type="text" class="form-control" name="item_details_[[row.id]]" id="item_details_[[row.id]]"></td> -->
+									<span>[[row.details]]</span>
+								<td width="10%" > <!--ng-click="uploadPic({{row.id}})"-->
+
+								<!-- 							<input type="file" id="item_pic_{{row.id}}" name="item_pic_{{row.id}}" style="visibility:hidden;position:absolute;top:0;left:0">
+															<i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+	
+								<label for="item_pic_[[row.id]]"><i ng-click="viewPicture(row.item_picture)" style="cursor: pointer" class="fa fa-camera fa-2x"></i></label>
+								<span style="cursor:pointer;" id = "item_pic_[[row.id]]_x"></span>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+			  </div>
+			</div>
+
+
+  	</div>
+</div>

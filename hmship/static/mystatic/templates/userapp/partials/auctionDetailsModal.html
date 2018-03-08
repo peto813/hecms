@@ -1,0 +1,80 @@
+
+
+        <button style="margin-right: 10px;margin-top: 10px;" ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Auction Details</h3>
+        </div>
+
+
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>Host:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.host|capitalize]]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>Begin Date:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.auction_begin|date:'MMMM dd yyyy']]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>End Date:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.auction_end|date:'MMMM dd yyyy']]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>Address:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.address]]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>City:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.city]]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>State/Prov:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.state_providence]]
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+              <b>Country:</b>
+            </div>
+            <div class="col-xs-6">
+              [[auctionDetails.country|capitalize]]
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+<!--           <input ng-disabled="!uploadProductForm.$valid" type="submit" name="uploadProductButton" value="Update Product" class="btn btn-success btn-block">  -->
+            <button type="button" class="btn btn-danger btn-md btn-block" ng-click="cancel()">Cancel</button> 
+          </div>  
+        </div>

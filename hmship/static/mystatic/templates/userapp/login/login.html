@@ -1,0 +1,185 @@
+
+<head>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'> -->
+
+  <!-- <link rel="stylesheet" type="text/css" href="static/css/userapp/login.css"> -->
+  <style type="text/css">
+
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+/*  width:100px;
+  height:100px;*/
+  /*background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* Chrome 10+, Saf5.1+ */
+  /*background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); *//* FF3.6+ */
+  /*background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); *//* IE10 */
+  /*background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* Opera 11.10+ */
+  /*background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* W3C */
+ /* font-family: 'Raleway', sans-serif;*/
+ padding: 20px;
+ padding-top: 80px;
+}
+
+ .socialAppLogos img{
+
+  margin-bottom: 20px;
+  height:50px;
+  width:240px;
+
+ }
+ .form-control{
+  max-width: 365px;
+}
+
+
+.panel-info{
+  margin: 0 auto;
+  max-width: 680px;
+}
+/* .middlePage {
+    max-width: 680px;
+    height: 500px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+*/
+
+/*
+p {
+  color:#CCC;
+}
+
+.spacing {
+  padding-top:7px;
+  padding-bottom:7px;
+}
+.middlePage {
+  width: 680px;
+    height: 500px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.logo {
+  color:#CCC;
+
+}
+
+
+
+*/    
+
+
+  </style>
+</head>
+
+
+
+
+    <div class="middlePage">
+    <div class="page-header">
+      <h1 class="logo">HmShip <small>Welcome!</small></h1>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="panel-title">Please Sign In</h3>
+          </div>
+        </div>
+        
+
+                
+
+      </div>
+      <div class="panel-body">
+      
+          <div class="row" >
+          
+<!--             <button class="btn btn-success" ng-click="" >test code</button> -->
+              <div class="cols-xs-12 col-sm-5 col-md-5" >
+
+                <a href="" ng-click="loginFB()" class="socialAppLogos" ><img src="static/img/social_app_logo/fb.png"><br/>
+                <a href="" ng-click="twitterSignIn()" class="socialAppLogos"><img src="static/img/social_app_logo/tw.png" /></a><br/>
+                <a href="" class="socialAppLogos" ng-click="googleSignIn()"><img src="static/img/social_app_logo/goo.png" /></a>
+              </div>
+
+              <div class="col-xs-12 col-sm-7 col-md-7 " style="border-left:1px solid #ccc;">
+                <form style="padding-left: 10px;padding-right: 10px;" ng-submit="loginPost()" name="loginForm" class="form-horizontal" novalidate>
+
+                      <div class="form-group has-feedback" ng-class="{ 'has-success' : loginForm.email.$valid && (loginForm.email.$touched || loginForm.$submitted), 'has-error' : !loginForm.email.$valid && (loginForm.email.$touched || loginForm.$submitted) }">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                          </span>
+                          <input ng-model="email" name="email" type="email" placeholder="Enter Email Address" class="form-control input-lg" required>
+                        </div>
+                        <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : loginForm.email.$valid && loginForm.email.$dirty, 'glyphicon-remove': (loginForm.email.$invalid && (loginForm.email.$dirty || loginForm.$submitted )) }" aria-hidden="true"></span>
+                                                                    <!--VALIDATION-->
+                        <div class="text-center" ng-messages="loginForm.email.$error" >
+                          <div>
+                           <code ng-if="loginForm.email.$touched || loginForm.$submitted" ng-message="required">
+                              <strong>Enter E-mail address.</strong>
+                           </code>
+                           <code ng-if="loginForm.email.$touched || loginForm.$submitted" ng-message="email">
+                              <strong>Invalid E-mail address</strong>
+                           </code>                           
+                          </div>
+                        </div> 
+
+                      </div>
+                      
+
+
+
+                      
+
+                  <div class="form-group has-feedback" ng-class="{ 'has-success' : loginForm.password.$valid && (loginForm.password.$touched || loginForm.$submitted), 'has-error' : !loginForm.password.$valid && (loginForm.password.$touched || loginForm.$submitted) }">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-lock fa-2x"></i>
+                          </span>
+                          <input  ng-change="errors={}" name="password" type="password" placeholder="Enter Password" class="form-control input-lg" ng-model="password" required>
+                        </div>
+                        <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : loginForm.password.$valid && loginForm.password.$dirty, 'glyphicon-remove': (loginForm.password.$invalid && (loginForm.password.$dirty || loginForm.$submitted )) }" aria-hidden="true"></span>
+                        <div class="text-center" ng-messages="loginForm.password.$error" >
+                          <div>
+                           <code ng-if="loginForm.password.$touched || loginForm.$submitted" ng-message="required">
+                              <strong>Enter your password.</strong>
+                           </code>                         
+                          </div>
+                        </div> 
+                  </div>
+
+                      
+
+
+                      <div class="text-center">
+                        <code ng-show="errors['non_field_errors']" ><b>[[ errors['non_field_errors'] ]]</b></code> 
+                      </div>
+<!-- 
+                      <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div> -->
+                      <div class="spacing"><a href="#/forgot-password"><small> Forgot Password?</small></a><br/></div>
+                      <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-info btn-lg btn-block">Sign In</button>
+
+                </form>
+              </div>
+              
+          </div>
+        
+      </div>
+    </div>
+
+    <p><a href="#/about">About</a></p>
+
+    </div>

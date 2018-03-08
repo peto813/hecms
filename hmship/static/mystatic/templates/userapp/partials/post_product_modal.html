@@ -1,0 +1,23 @@
+<form ng-submit="requestService()" novalidate>
+	<div class="modal-header">
+		<h3 class="text-center">Product registracion successful</h3>
+	</div>
+	<!--   <button type="button" class="close" ng-click="cancel()" aria-label="Close"> -->
+	  </button>
+	<div class="modal-body">
+	<p>Would you like to request a service quote for this product?</p>
+	<div class="form-group">
+		<select class="form-control" ng-model="service">
+			<option value="">Service type</option>
+			<option value="inspections">Inspection</option>
+			<option value="maintenance">Maintenance</option>
+			<option value="logistics">Logistics</option>
+		</select>
+	</div>
+	
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-info btn-block">Request service quote</button>
+	    <button type="button" class="btn btn-danger btn-block" ng-click="cancel()">Naw! Register another purchase</button>
+	</div>
+</form>

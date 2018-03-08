@@ -1,0 +1,118 @@
+
+<head>
+	<style type="text/css">
+
+.thumbnails .img-responsive {
+    margin: 0 auto;
+    height:200px;
+    width:auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+form {
+	border-radius: 5px;
+	padding:20px;
+	background-color:white;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+input[type="submit"]{
+	margin-top: 25px;
+}
+
+	</style>
+</head>
+
+
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<form name="uploadProductForm" id="uploadProductForm" ng-submit="uploadProduct( uploadFields.mobilePhoto )" novalidate>
+				<h1 class="text-center">Upload Products</h1>
+				<hr>
+				<div class="form-group has-feedback" ng-class="{ 'has-success' : uploadProductForm.auctionName.$valid && (uploadProductForm.auctionName.$touched || uploadProductForm.$submitted), 'has-error' : !uploadProductForm.auctionName.$valid && (uploadProductForm.auctionName.$touched || uploadProductForm.$submitted) }" >
+					<label for="id_auctionName" class="sr-only">Auction Name</label>
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-truck"></i></div>
+						<select id="id_auctionName" name="auctionName" class="form-control input-lg" ng-model="uploadFields.auctionName" required>
+							<option value="">Select Auction</option>
+							<option ng-repeat="option in optionsList" value="[[option.id]]">[[option.host]] : [[option.auction_begin|date:'dd MMMM yyyy']] - [[option.auction_end|date:'dd MMMM yyyy']] - [[option.country]], [[option.state_providence]], [[ option.city]], [[option.zip_code||'']]</option>
+						</select>
+					</div>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : uploadProductForm.auctionName.$valid && uploadProductForm.auctionName.$dirty, 'glyphicon-remove': (uploadProductForm.auctionName.$invalid && (uploadProductForm.auctionName.$dirty || uploadProductForm.$submitted )) }" aria-hidden="true"></span>
+
+					 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="uploadProductForm.auctionName.$error" style="color:maroon" role="alert">
+					   <code ng-if="uploadProductForm.auctionName.$touched || uploadProductForm.$submitted" ng-message="required">
+					   	<strong>This field is required</strong>
+					   </code>
+					 </div>	
+				</div>
+
+				<text-input form-field="uploadProductForm.lotnumber" name="lotnumber" placeholder="Lot Number" id="id_lotnumber" size='lg' ng-model="uploadFields.lotnumber"  input-required="true">
+					<label-addon>
+						<label for="id_lotnumber" class="sr-only">Lot Number:</label>
+					</label-addon>
+					<input-addon>
+						<i class="fa fa-hashtag"></i>
+					</input-addon>
+				</text-input>
+
+
+				<text-input form-field="uploadProductForm.item_name" name="item_name" placeholder="What did you buy?" id="id_item_name" size='lg' ng-model="uploadFields.item_name"  input-required="true">
+					<label-addon>
+						<label for="id_item_name" class="sr-only">Item Name:</label>
+					</label-addon>
+					<input-addon>
+						<i class="fa fa-hashtag"></i>
+					</input-addon>
+				</text-input>
+
+			<text-input form-field="uploadProductForm.description" name="description" placeholder="Brief description of product" id="id_description" size='lg' ng-model="uploadFields.description"  input-required="true">
+				<label-addon>
+					<label for="id_lotnumber" class="sr-only">Description:</label>
+				</label-addon>
+				<input-addon>
+					<i class="fa fa-hashtag"></i>
+				</input-addon>
+			</text-input>
+
+			<div>
+				
+
+			<div style="margin-top: 10px;" ng-show="f.progress >= 0">
+				<uib-progressbar value="f.progress">[[f.progress]] %</uib-progressbar>
+			</div>
+
+			<div style="margin-bottom:15px;">
+				<h4 ng-show="selectedFile" class="text-center">[[selectedFile.name]] ( [[selectedFile.size/1000000 | number: 2]] MB )<a ng-click="picPreview( 'md', selectedFile)" style="margin-left:5px;" href="">View</a>
+				</h4>
+				<div class="text-center">
+					<code ng-show="uploadProductForm.productPicture.$error.required && uploadProductForm.productPicture.$touched"><b>No picture selected</b></code><br>
+	      			<code ng-show="uploadProductForm.productPicture.$error.maxSize"></b>Max 5 MB <b></code>
+	      			<code ng-show="uploadProductForm.productPicture.$error.minSize"></b>Minimum file size is 0.5MB <b></code>
+	      			<code ng-show="uploadProductForm.productPicture.$error.pattern"></b>Wrong file type<b> </code>				
+				</div>
+			</div>
+
+			<button class="btn btn-default btn-block"
+			    ng-model="uploadFields.mobilePhoto"
+			    ngf-select="select($event, $file)"
+			    accept="image/*"
+			    ng-required="true"
+			    ngf-pattern="'image/*'" 
+			    ngf-max-height="4000" 
+			    ngf-max-size="5MB"
+			    ngf-min-size="0.5MB"
+			    name="productPicture"
+			    >
+			    <i class="fa fa-camera fa-2x">
+			    
+			    </i>
+
+			</button>
+			
+			</div>
+			<input ng-disabled="!uploadProductForm.$valid" type="submit" name="uploadProductButton" value="Upload Product" class="btn btn-success btn-lg btn-block">
+		</form>
+	</div>
+</div>

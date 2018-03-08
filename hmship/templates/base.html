@@ -1,0 +1,139 @@
+{% load staticfiles %}
+{% load i18n %} 
+<!DOCTYPE html>
+
+<html lang="en" ng-app="hmShipApp">
+  <head>
+    <!-- <meta http-equiv=“Content-Type” content=“text/html; charset=utf-8”> -->
+    <meta http-equiv=“Content-Type” content=“text/html charset="ISO 8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'js/carousel/dist/angular-carousel.css' %}">
+      <style type="text/css">
+
+        .waitForServer {
+
+            display: flex;
+            justify-content: center; /* align horizontal */
+            align-items: center; /* align vertical */
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            color:white;
+            background: rgba( 0, 0, 0, .2 ) ;
+        }
+
+
+      body{
+        padding-top: 150px;
+        background-color: white;
+      }
+      #loadSpan{
+ color: #444;
+margin: 0;
+padding: 0px 0px 6px 0px;
+font-size: 51px;
+line-height: 44px;
+letter-spacing: -2px;
+font-weight: bold;
+      }
+
+      </style>
+  </head>
+<body>
+
+      <div class="waitForServer" data-loading>
+        <i class="fa fa-spinner fa-pulse fa-fw fa-5x"></i>
+        <span id="loadSpan" class="sr-only">Loading...</span>
+    </div>
+
+    {% block index %}{% endblock index %}
+    {% block email_verify %}{% endblock email_verify %}
+    {% block paypal_accepted %}{% endblock paypal_accepted %}
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+           <script  src="{% static 'js/angular-ui-router.min.js' %}"></script>
+<script src="{% static 'js/userapp/directives/hmShipDirectives.js' %}"></script>
+      <script  src="{% static 'js/userapp/services/hmShipServices.js' %}"></script>
+      <script  src="{% static 'js/userapp/controllers/hmShipControllers.js' %}"></script>
+       <script  src="{% static 'js/userapp/controllers/hmShipModalControllers.js' %}"></script>
+       <script  src="{% static 'js/userapp/filters/hmShipFilters.js' %}"></script>
+
+      <script  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+      <script  src="{% static 'js/ui-bootstrap-tpls.js' %}"></script>
+      <script  src="{% static 'js/angular-touch.js' %}"></script>
+      <script  src="{% static 'js/upload.js' %}"></script>
+      <script  src="{% static 'js/shim-upload.js' %}"></script>
+      <script  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+      
+      <script  src="{% static 'js/carousel/dist/angular-carousel.js' %}"></script>
+      <script  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-sanitize.min.js"></script>
+      
+        <script  src="{% static 'js/userapp/app.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwwLlqnzDYgYHl5wMsUlySoh_YQH3ulBY&libraries=places" ></script>
+
+<div id="fb-root"></div>
+<script type="text/javascript">
+  
+  var tokenStr = '{{tokenDict|safe}}';
+  if (tokenStr){
+    var token = JSON.parse('{{tokenDict|safe}}')
+    sessionStorage.setItem('token', token);
+  }
+
+</script>
+<script type="text/javascript">
+    //RUN FACEBOOK APP PLUGINS
+    window.fbAsyncInit = function() {
+        FB.init({ 
+          appId: '1298298486913255',
+          status: true, 
+          cookie: true, 
+          xfbml: true,
+          version: 'v2.8'
+        })
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+</script>
+
+<script src="https://apis.google.com/js/platform.js" ></script>
+<script  type="text/javascript">
+  //window.onLoadCallback = function(){
+      //GOOGLE API INITIALIZER
+      gapi.load('auth2', function() {//load in the auth2 api's, without it gapi.auth2 will be undefined
+          gapi.auth2.init(
+                  {
+                    client_id: '706708208049-ttgnur2puavdu5opl7n7j1qo5rvi5jns.apps.googleusercontent.com'
+                      //706708208049-ttgnur2puavdu5opl7n7j1qo5rvi5jns.apps.googleusercontent.com garys
+                  }
+          );
+      });
+</script>
+<!--Start of Zendesk Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="https://v2.zopim.com/?4kSEPrXHYMq46WEMRXvvjIOwrLadei2i";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zendesk Chat Script-->
+</body>
+</html>

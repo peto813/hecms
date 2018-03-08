@@ -1,0 +1,146 @@
+<head> 
+	<style type="text/css">
+		body{
+			 background-image: url("/static/img/imageri/background logistics.jpg");
+		}
+		form[name="maintenanceForm"]{
+			background-color: white;
+			padding:20px;
+			border-radius: 10px;
+			box-shadow: 10px 10px 5px #888888;
+		}
+		th{
+			text-align:center;
+		}
+
+.maintenance.ng-enter{
+
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.35s;
+  display:block;
+  width:100%;
+  border-bottom:1px solid black;
+  position:absolute;
+/*  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;*/
+}
+
+.maintenance.ng-enter {
+  bottom:100%;
+}
+.maintenance.ng-enter.ng-enter-active {
+  bottom:0;
+}
+.maintenance.ng-leave.ng-leave-active {
+  bottom:-100%;
+}
+
+	</style>
+</head>
+<div class="row">
+	<div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+
+		<form name="maintenanceForm" ng-submit="requestMaintainance()" novalidate>
+	<h1 class="text-center">Maintenance [[maintenanceForm.$errors]]</h1>
+	<hr>
+
+		<!--	SEARCH FIELD -->
+		<text-input form-field="maintenanceForm.searchField" name="searchField" placeholder="Search by lot #" id="id_searchField" size='lg' ng-model="searchField">
+			<label-addon>
+				<label for="id_lotnumber" class="sr-only">Search by lot Number:</label>
+			</label-addon>
+			<input-addon>
+				<i class="fa fa-search"></i>
+			</input-addon>
+		</text-input>
+
+		<!--SELECT PURCHASES FIELD-->
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : maintenanceForm.auctionItem.$valid && (maintenanceForm.auctionItem.$touched || maintenanceForm.$submitted), 'has-error' : !maintenanceForm.auctionItem.$valid && (maintenanceForm.auctionItem.$touched || maintenanceForm.$submitted) }" >
+			<label for="id_auctionItem" class="sr-only">Purchases List</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-shopping-cart"></i></div>
+				<select  id="id_auctionItem" name="auctionItem" class="form-control input-lg" ng-model="auctionItem" required="">
+					<option ng-if="!searchField" value="">Select Purchase</option>
+					<option ng-if="searchField && filtered.length>0" value="">Results Found ( [[filtered.length]] )</option>
+					<option ng-if="searchField && filtered.length==0" value="">No Results </option>
+
+					<option ng-repeat="item in maintainanceProducts | filter : searchField as filtered" value = "[[item.id]]" ng-show="!itemSelected(item)">[[item.item_name]] - [[item.host|capitalize]] - #[[item.lot_number]]</option>
+				</select>
+			</div>
+			<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="maintenanceForm.auctionItem.$error" style="color:maroon" role="alert">
+				   <code ng-if="maintenanceForm.auctionItem.$touched || maintenanceForm.$submitted" ng-message="required">
+				   	<strong>This field is required</strong>
+				   </code>
+			</div>
+		</div>
+
+			<hr>
+			<div class="form-group has-feedback" ng-class="{ 'has-success' : maintenanceForm.maintenanceType.$valid && (maintenanceForm.maintenanceType.$touched || maintenanceForm.$submitted), 'has-error' : !maintenanceForm.maintenanceType.$valid && (maintenanceForm.maintenanceType.$touched || maintenanceForm.$submitted) }">
+				<label for="id_maintenanceType" class="sr-only"></label>
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-cogs"></i></div>
+				 	<select ng-disabled="!auctionItem" class="form-control input-lg" ng-model="maintenanceType" name="maintenanceType" id="id_maintenanceType" required>
+						<option value="">Select a Maintenance Type</option>
+						<option>Parts</option>
+						<option>Fluids/Filters</option>
+						<option>Body Jobs</option>
+					</select>	
+				</div>
+				<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="maintenanceForm.maintenanceType.$error" style="color:maroon" role="alert">
+					   <code ng-if="maintenanceForm.maintenanceType.$touched || maintenanceForm.$submitted" ng-message="required">
+					   	<strong>This field is required</strong>
+					   </code>
+				</div>
+			</div>
+				<div class="form-group" style="margin-top: 10px;">
+
+					<label class="radio-inline"><input type="radio" ng-model="partsProvider" name="partsProvider" value="Client">Parts Provided by customer</label>
+					<label class="radio-inline"><input type="radio" ng-model="partsProvider" name="partsProvider" value="Hecms">Parts Provided by Hecms Ship</label>		
+				</div>
+<hr>
+
+    							<!--location FIELD-->
+
+    <div class="form-group has-feedback" ng-class="{ 'has-success' : maintenanceForm.location.$valid && (maintenanceForm.location.$touched || maintenanceForm.$submitted), 'has-error' : !maintenanceForm.location.$valid && (maintenanceForm.location.$touched || maintenanceForm.$submitted) }">
+    	<label for="autocomplete2" class="sr-only">Purchase Location:</label>
+	    <div class="input-group">
+	    	<span class="input-group-addon">
+	    		<i class="fa fa-location-arrow"></i>
+	    	</span>
+	    	<input id="autocomplete2" placeholder="Where is the product located?" type="text" class="form-control input-lg"  ng-model="location" name="location" google-maps-autocomplete required></input>
+	    </div>
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : maintenanceForm.location.$valid && maintenanceForm.location.$dirty, 'glyphicon-remove': (maintenanceForm.location.$invalid && (maintenanceForm.location.$dirty || maintenanceForm.$submitted )) }" aria-hidden="true"></span>
+
+		<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="maintenanceForm.location.$error" style="color:maroon" role="alert">
+			   <code ng-if="maintenanceForm.location.$touched || maintenanceForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>
+		</div>
+    </div>
+
+	
+			<text-input form-field="maintenanceForm.details" name="details" placeholder="Any additional details?" id="id_details" size='lg' ng-model="details" input-required="true">
+			<label-addon>
+				<label for="id_lotnumber" class="sr-only">Search by lot Number:</label>
+			</label-addon>
+			<input-addon>
+				<i class="fa fa-hashtag"></i>
+			</input-addon>
+			</text-input>
+			<!--ng-disabled="!maintenanceForm.$valid" -->
+			<input ng-disabled="!maintenanceForm.$valid" type="submit" class="btn btn-block btn-success" name="submitLogistics" value="Request Maintenance Service">
+			<span bg-dange="All arrangements according to law....."></span>
+
+			<!--ERROR CHECKER-->
+<!-- <ul>
+  <li ng-repeat="(key, errors) in maintenanceForm.$error track by $index"> <strong>[[ key ]]</strong> errors
+    <ul>
+      <li ng-repeat="e in errors">[[ e.$name ]] has an error: <strong>[[ key ]]</strong>.</li>
+    </ul>
+  </li>
+</ul> -->
+		</form>
+	</div>
+</div>

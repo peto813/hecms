@@ -1,0 +1,30 @@
+<tab-element tab-list="orderBookTabList"></tab-element>
+<panel-table min-date="minDate" max-date="maxDate" search-field="true" table-search = "searchParam" search-field="true" panel-title="Order History">
+
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<tr><!--ng-change="selectAllchx()"-->
+	  			<td><input type="checkbox"  name="selectAll" ng-model="selectAll" ng-change="selectAllChx()"></td>
+	  			<td ng-repeat="column in colList"><b>[[column.title]]</b>
+	  				<i class="fa fa-caret-down" aria-hidden="true"></i>
+	  				<i class="fa fa-caret-up" aria-hidden="true"></i>
+	  			</td>
+	  		</tr>
+	  		<tbody>
+		  		<tr ng-repeat="row in purchases|filter : searchParam as filtered">
+	  				<!-- <td ng-repeat="columnObj in colList">[[ row[columnObj.key] ]]</td> -->
+	  				<td><input type="checkbox" ng-model="row.checked" name="checkboxrow[[$index]]" ng-checked="selectAll"></td>
+	  				<td><a ng-click="OrderBookDetails(row)" href="">[[row.lot_number]]</a></td>
+	  				<td>[[row.item_name]]</td>
+	 			  	<td>[[row.host]]</td>
+			  		<td>[[row.auction_begin|date:'dd MMMM yyyy']]</td>
+<!-- 						  		<td>[[row.identifier|capitalize]]</td>
+			  		<td>[[row.status|capitalize]]</td> -->
+			  		<td><button class="btn btn-sm btn-default" ng-click="changePurchase(row)"><i class="fa fa-pencil"></i></button></td>
+	  			</tr>			
+	  		</tbody>
+	  	</table>
+  	</div>
+
+
+</panel-table>

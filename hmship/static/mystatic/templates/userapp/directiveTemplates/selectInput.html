@@ -1,0 +1,20 @@
+	
+
+	<div class="form-group has-feedback" ng-class="{ 'has-success' : formField.$valid && (formField.$touched || form.$submitted), 'has-error' : !formField.$valid && (formField.$touched || form.$submitted) }" >
+		<div ng-transclude="labelAddon"></div>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<div ng-transclude="inputAddon"></div>
+			</span>
+			<div ng-transclude="inputOptions"></div>
+		</div>
+
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : formField.$valid && formField.$dirty, 'glyphicon-remove': (formField.$invalid && (formField.$dirty || form.$submitted )) }" aria-hidden="true"></span>
+	
+		 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="formField.$error" style="color:maroon" role="alert">
+		   <code ng-if="formField.$touched || form.$submitted" ng-message="required">
+		   	<strong>This field is required</strong>
+		   </code>
+		 </div>
+
+	</div>

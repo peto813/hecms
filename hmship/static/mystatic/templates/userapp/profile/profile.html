@@ -1,0 +1,265 @@
+<head>
+	<style type="text/css">
+/*		#nickname{
+			width:-moz-available;
+		}*/
+
+/*    @media screen and (min-width: 768px) {
+      .collapsedoption {
+        display:none !important;
+      }
+
+    }*/
+
+  @media screen and (min-width: 768px) {
+  		#pwdHr{
+			display: none;
+		}
+		#changePwdRowDiv{
+			border-left: 1px solid #ccc;
+			height:100px;
+			padding-top: 25px;
+		}
+		#imageDiv{
+			padding-top: 25px;
+			height:100px
+		}
+
+
+  }
+
+
+  @media screen and (max-width: 768px) {
+		#lastName{
+			margin-top: 10px
+		}
+		#nickNameSubmit{
+			margin-top: 10px;
+		}
+		input[type="text"]{
+			max-width: 300px;
+		}
+
+		.pageTitle{
+			text-align: center;
+		}
+
+    }
+
+
+
+
+/*
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+*/
+.progress {
+    display: inline-block;
+    width: 100px;
+    
+}
+
+/*.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+*/
+	</style>
+</head>
+
+<h2 class="pageTitle">User Profile</h2>
+
+<hr>
+
+<div class="row">
+	
+	<div class="col-xs-12 col-sm-7 col-md-4">
+	<!-- <label>Profile Picture</label> -->
+		<form name="profilePic" method ="post" enctype="multipart/form-data" novalidate>
+			<div class="row" id="imageDiv">
+				<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+					<!-- <img style="height:55px;" src="static/img/pictureplaceholder.jpg" alt="No Picture" class="img-responsive img-circle"> -->
+
+					<img style="height:55px;" ng-src="[[profile_picture ]]" alt="No Picture" class="img-responsive img-circle">
+					<label style="cursor: pointer;" ng-click="removepic()">Remove</label>
+
+				</div>
+				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+					<button style="width:181px;" class="btn btn-lg btn-info" type="file" ngf-select="uploadFiles($file, $invalidFiles)" ngf-pattern="'image/*'" ngf-min-size ="1MB" ngf-max-height="4000" ngf-max-size="5MB">
+							Profile Picture
+					</button>
+
+					<div style="height:30px;">
+						<div ng-show="f.progress >= 0">
+							<uib-progressbar value="f.progress">[[f.progress]] %</uib-progressbar>
+						</div>
+					</div>
+
+
+					<span ng-show="f.result">Upload Successful</span>
+					<!-- <span class="err" ng-show="errorMsg">[[errorMsg]]</span> -->
+					<div style="font:smaller">
+					 <!--[[f.name]]  [[errFile.name]]-->
+							<div ng-if="errFile.$error=='maxSize'" style="margin-top:10px;">
+								<code><b>File too large</b></code>
+							</div>
+							<div ng-if="errFile.$error=='pattern'" style="margin-top:10px;">
+								<code><b>Wrong File Type</b></code>
+							</div>	
+					<!--       <span class="progress" ng-show="f.progress >= 0">
+					          <div style="width:[[f.progress]]%"  
+					               ng-bind="f.progress + '%'"></div>
+					      </span> -->
+					  </div>     
+					  [[errorMsg]]
+					   <!--  </label> -->
+	    				<!-- <input id="imageUpload" type="file" accept="image/*" capture="camera" name="file" style="display:none;"> -->
+				</div>			
+			</div>		
+		</form>
+
+
+	</div>
+
+
+
+	<div class="col-xs-12 col-sm-4 col-md-4">
+		<hr id="pwdHr">
+		<div class="row" id="changePwdRowDiv">
+			<div class="col-xs-4" >
+				<label>Change Password</label>
+			</div>
+			<div class="col-xs-4" >
+				
+				<button class="btn btn-lg btn-info" ng-click="changePwdModal('md')" type="button">Change Password</button>	
+			</div>	
+		</div>
+	</div>
+
+
+
+</div>
+
+<hr>
+
+
+
+		<form ng-submit="postNameChange()" name="nicknameForm" class="form-inline" novalidate>
+			<div class="row">
+					<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+						<label>Complete Name</label>
+						<!-- <h5>This name will be part of your public profile</h5> -->
+					</div>
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<div class="form-group">
+						<div class="input-group" id="firstName">
+							<span class="input-group-addon">
+								<i class="fa fa-user"></i>
+							</span>
+							<input type="text" placeholder="First Name" ng-model="userdata.first_name" type="firstName"  name="firstName"  class="form-control input-lg" required>
+						</div>                                                      
+						 <!--VALIDATION-->
+<!-- 						<div style="text-align: center;height:25px;font-weight: bold;">
+							<div ng-messages="nicknameForm.firstName.$error" ng-controller="ErrormessageController" ng-if="nicknameForm.firstName.$touched && nicknameForm.firstName.$dirty" >
+								<validation-element></validation-element>
+							</div>   
+						</div>  -->
+					</div>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+<!-- 					<input placeholder="First Name" ng-model="firstName" type="firstName" id="firstName" name="firstName" class="form-control input-lg"> -->
+					<div class="form-group">
+						<div class="input-group" id="lastName">
+							<span class="input-group-addon">
+								<i class="fa fa-user"></i>
+							</span>
+							<input placeholder="Last Name" type="text"  name="lastName" ng-model="userdata.last_name" class="form-control input-lg" required>
+						</div>
+						 <!--VALIDATION-->
+<!-- 						<div style="text-align: center;height:25px;font-weight: bold;">
+							<div ng-messages="nicknameForm.lastName.$error" ng-controller="ErrormessageController" ng-if="nicknameForm.lastName.$touched && nicknameForm.lastName.$dirty" >
+								<validation-element></validation-element>
+							</div>   
+						</div>  -->
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+					<label  for="id_company_name">Company Name</label>
+				</div>
+		
+	
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+						<input type="text" placeholder="Company Name" id="id_company_name" name="company_name" ng-model="userdata.company_name" class="form-control input-lg">
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+					<input type="submit" id="nickNameSubmit"  ng-disabled="!nicknameForm.$valid" name="nickNameSubmit" class="btn btn-lg btn-info" value="Save">
+				</div>
+			</div>
+		</form>
+
+
+<hr style="margin-top: 50px;">
+		<form ng-submit="updateContactInfo()" name="contactInfoForm" novalidate>
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+					<label  for="id_company_name">Contact Info</label>
+				</div>
+		
+	
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<text-input ng-pattern ="phoneNumber" placeholder ="Mobile Contact" form-field = "contactInfoForm.mobile_number" id  = "mobile_number" name = "mobile_number" ng-model = "mobile_number" size = "lg">
+						<input-addon><i class="fa fa-mobile"></i></input-addon>
+					</text-input>
+				</div>
+
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<text-input ng-pattern ="phoneNumber" placeholder ="Office Contact" form-field = "contactInfoForm.office_number" id  = "office_number" name = "office_number" ng-model = "office_number" size = "lg">
+						<input-addon><i class="fa fa-phone"></i></input-addon>
+					</text-input>
+				</div>
+
+				<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+					<input type="submit" id="contactInfoSubmit"  ng-disabled="!contactInfoForm.$valid" name="contactInfoSubmit" class="btn btn-lg btn-info" value="Update Contact Info">
+				</div>
+<!-- 	<form ng-submit="updateContactInfo()" name="contactInfoForm" novalidate>
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+
+				<text-input ng-pattern ="phoneNumber" placeholder ="Mobile Contact" form-field = "contactInfoForm.mobile_number" id  = "mobile_number" name = "mobile_number" ng-model = "mobile_number" size = "lg">
+					<input-addon><i class="fa fa-mobile"></i></input-addon>
+				</text-input>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<text-input ng-pattern ="phoneNumber" placeholder ="Office Contact" form-field = "contactInfoForm.office_number" id  = "office_number" name = "office_number" ng-model = "office_number" size = "lg">
+					<input-addon><i class="fa fa-phone"></i></input-addon>
+				</text-input>
+				
+			</div>
+			<div class="col-lg-2">
+				<input type="submit" id="contactInfoSubmit"  ng-disabled="!contactInfoForm.$valid" name="contactInfoSubmit" class="btn btn-lg btn-info" value="Update Contact Info">
+			</div>
+		</div> -->
+		</form>
+		
+

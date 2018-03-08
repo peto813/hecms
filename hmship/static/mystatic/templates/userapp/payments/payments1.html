@@ -1,0 +1,140 @@
+<head>
+  <style type="text/css">
+    
+.table>tbody>tr>td, .table>tfoot>tr>td{
+    vertical-align: middle;
+}
+@media screen and (max-width: 600px) {
+    table#cart tbody td .form-control{
+    width:20%;
+    display: inline !important;
+  }
+  .actions .btn{
+    width:36%;
+    margin:1.5em 0;
+  }
+  
+  .actions .btn-info{
+    float:left;
+  }
+  .actions .btn-danger{
+    float:right;
+  }
+  
+  table#cart thead { display: none; }
+  table#cart tbody td { display: block; padding: .6rem; min-width:320px;}
+  table#cart tbody tr td:first-child { background: #333; color: #fff; }
+  table#cart tbody td:before {
+    content: attr(data-th); font-weight: bold;
+    display: inline-block; width: 8rem;
+  }
+  
+  
+  
+  table#cart tfoot td{display:block; }
+  table#cart tfoot td .btn{display:block;}
+  
+}
+
+#norders {
+   margin:0 auto;
+   text-align: center;
+   max-width: 75%;
+}
+
+
+.page-shopping-cart.ng-enter, .page-shopping-cart.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.45s;
+
+  display:block;
+  width:100%;
+  border-left:1px solid black;
+
+  position:absolute;
+/*  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;*/
+}
+
+.page-shopping-cart.ng-enter {
+  left:100%;
+}
+.page-shopping-cart.ng-enter.ng-enter-active {
+  left:0;
+}
+.page-shopping-cart.ng-leave.ng-leave-active {
+  left:-100%;
+}
+#norders a{
+  text-align: center;
+}
+  </style>
+</head>
+<div class="container">
+  <div id="norders" ng-if ="!shoppingCart.length>0">
+    <h2 class="text-center" ><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+Your Cart is empty!</h2>
+    <a style="width: 200px;margin-top: 20px;" href="#/orderbook" class="btn btn-warning">Go Back</a>
+  </div>
+    
+  <div ng-if ="shoppingCart.length>0">
+      <h2>Review your orders</h2>
+      <table id="cart" class="table table-hover table-condensed">
+          <thead>
+          <tr>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <!-- <th style="width:8%">Quantity</th> -->
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in shoppingCart">
+            <td data-th="[[item.service_type]]">
+              <div class="row">
+                <div class="col-sm-2 hidden-xs"><img ng-src="" alt="..." class="img-responsive"/></div>
+                <div class="col-sm-10">
+                  <h4 class="nomargin">[[item.service_type]]</h4>
+                  <p>[[get_description(item)]]</p>
+                </div>
+              </div>
+            </td>
+            <td data-th="Price">[[item.quote_price| currency: '$' : 2]]</td>
+<!--               <td data-th="Quantity">
+              <input type="number" class="form-control text-center" value="1">
+            </td> -->
+            <td data-th="Subtotal" class="text-center">[[item.quote_price| currency: '$' : 2]]</td>
+            <td class="actions" data-th="">
+              <!-- <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button> -->
+              <button class="btn btn-danger btn-sm" ng-click="eraseItemFromCart(item)"><i class="fa fa-trash-o"></i></button>                
+            </td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+
+          <tr class="visible-xs">
+            <td class="text-center"><strong>Total [[totalDue()| currency: '$' : 2]]</strong></td>
+          </tr>
+
+          <tr>
+            <td>
+              <a href="#/orderbook" class="btn btn-warning"><i class="fa fa-angle-left"></i> Back</a>
+            </td>
+            <!--MODIFY COLSPAN FOR WIDTH OF TABLE FOOTER-->
+            <td colspan="1" class="hidden-xs"></td>
+            <td class="hidden-xs text-center">
+              <strong>Total [[totalDue()| currency: '$' : 2]]</strong>
+            </td>
+            <td>
+              <a href="#/paymentmethod" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+  </div>
+
+</div>

@@ -1,0 +1,88 @@
+<form ng-submit="reisterBankDeposit(paymentProofFile)" name="registerBankDepositForm" novalidate>
+	<div class="modal-header">
+		<h2 class="text-center">Register Payment</h2>
+	</div>
+	<div class="modal-body">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>Bank:</td>
+					<td>[[bank.bank]]</td>
+				</tr>
+				<tr>
+					<td>Account:</td>
+					<td>[[bank.account_number]]</td>
+				</tr>
+				<tr>
+					<td>Total:</td>
+					<td>[[total| currency: '$' : 2]]</td>
+				</tr>
+				<tr ng-class="{ 'bg-warning': !registerBankDepositForm.$valid, 'bg-success': registerBankDepositForm.$valid}">
+					<td>Payment Proof:</td>
+					<td>
+						<button class="btn btn-default"
+						    ng-model="paymentProofFile"
+						    ngf-select="select($event, $file)"
+						    ngf-capture="'camera'"
+						    accept="image/*"
+						    ng-required="true"
+						    ngf-pattern="'image/*'" 
+						    ngf-max-height="4000" 
+						    ngf-max-size="5MB"
+						    name="paymentProofFile"
+						    >
+						    <i class="fa fa-file fa-2x">
+						    
+						    </i>
+						</button>
+						<i ng-if="registerBankDepositForm.paymentProofFile.$valid" class="fa fa-check fa-2x"></i>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		
+
+			<div style="margin-top: 10px;" ng-show="f.progress >= 0">
+				<uib-progressbar value="f.progress">[[f.progress]] %</uib-progressbar>
+			</div>
+
+			<div style="height:20px;margin-bottom:15px;">
+				<h4 ng-show="selectedFile" class="text-center">[[selectedFile.name]] ( [[selectedFile.size/1000000 | number: 2]] MB )<a ng-click="picPreview( 'md', selectedFile)" style="margin-left:5px;" href="">View</a>
+				</h4>
+				<div class="text-center">
+					<code ng-show="registerBankDepositForm.paymentProofFile.$error.required && registerBankDepositForm.paymentProofFile.$touched"><b>No payment proof uploaded</b></code><br>
+	      			<code ng-show="registerBankDepositForm.paymentProofFile.$error.maxSize"></b>File too large <b></code>
+	      			<code ng-show="registerBankDepositForm.paymentProofFile.$error.pattern"></b>Wrong file type<b> </code>				
+				</div>
+			</div>
+
+			<!-- <h5 class="text-center">Upload Proof</h3> -->
+			
+<!-- 			<div style="margin: 0 auto;width: 100px; ">
+				<button class="btn btn-default"
+				    ng-model="uploadFields.mobilePhoto"
+				    ngf-select="select($event, $file)"
+				    ngf-capture="'camera'"
+				    accept="image/*"
+				    ng-required="true"
+				    ngf-pattern="'image/*'" 
+				    ngf-max-height="4000" 
+				    ngf-max-size="5MB"
+				    name="productPicture"
+				    >
+				    <i class="fa fa-file fa-2x">
+				    
+				    </i>
+				</button>
+			</div> -->
+			<p style="margin-top:20px;">This may be a transfer screen print, deposit slip picture, or any proof of payment</p>	
+	</div>
+	<div class="modal-footer">
+		<input ng-disabled="!registerBankDepositForm.$valid" type="submit" name="registerBankDepositSubmit" value="OK" class="btn btn-lg btn-block btn-success">
+		<button class="btn btn-lg btn-danger btn-md btn-block" ng-click="cancel()">
+			Cancel
+		</button>
+	</div>
+
+</form>

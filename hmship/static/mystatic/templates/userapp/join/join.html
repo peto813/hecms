@@ -1,0 +1,224 @@
+
+<head>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'> -->
+<!-- <link rel="stylesheet" type="text/css" href="static/css/userapp/join.css"> -->
+<style type="text/css">
+  
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+/*  width:100px;
+  height:100px;*/
+  /*background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* Chrome 10+, Saf5.1+ */
+  /*background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); *//* FF3.6+ */
+  /*background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); *//* IE10 */
+  /*background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* Opera 11.10+ */
+  /*background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%);*/ /* W3C */
+ /* font-family: 'Raleway', sans-serif;*/
+ padding: 20px;
+ padding-top: 80px;
+}
+
+ .socialAppLogos img{
+
+  margin-bottom: 20px;
+  height:50px;
+  width:240px;
+
+ }
+ .form-control{
+  max-width: 365px;
+  margin-bottom: 15px;
+}
+
+
+
+.panel-info{
+  margin: 0 auto;
+  max-width: 680px;
+}
+/* .middlePage {
+    max-width: 680px;
+    height: 500px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+*/
+
+/*
+p {
+  color:#CCC;
+}
+
+.spacing {
+  padding-top:7px;
+  padding-bottom:7px;
+}
+.middlePage {
+  width: 680px;
+    height: 500px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.logo {
+  color:#CCC;
+
+}
+
+
+
+*/
+</style>
+</head>
+<body ng-cloak>
+
+
+
+    <div class="middlePage">
+    <div class="page-header">
+      <h1 class="logo">HmShip <small>Welcome!</small></h1>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2 class="panel-title text-center" style="font-size: 30px;">Please Register</h2>
+      </div>
+      <div class="panel-body">
+      
+          <div class="row">
+            
+              <div ng-controller="signInController" class="cols-xs-12 col-sm-5 col-md-5" >
+
+                <a href="" ng-click="loginFB()" class="socialAppLogos" ><img src="static/img/social_app_logo/fb.png"><br/>
+                <a href="" ng-click="twitterSignIn()" class="socialAppLogos"><img src="static/img/social_app_logo/tw.png" /></a><br/>
+                <a href="" ng-click="googleSignIn()" class="socialAppLogos"><img src="static/img/social_app_logo/goo.png" /></a>
+              </div>
+
+              <div class="col-md-7" style="border-left:1px solid #ccc;">
+                <form ng-submit="joinPost()" style="padding-left: 10px;padding-right: 10px;" name="joinForm" class="form-horizontal" novalidate>
+
+
+                      <div class="form-group has-feedback" ng-class="{ 'has-success' : joinForm.email.$valid && (joinForm.email.$touched || joinForm.$submitted), 'has-error' : !joinForm.email.$valid && (joinForm.email.$touched || joinForm.$submitted) }">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                          </span>
+                          <input ng-change="errors={}" ng-model="email" name="email" type="email" placeholder="Enter Email Address" class="form-control input-lg" required>
+                        </div>
+                        <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : joinForm.email.$valid && joinForm.email.$dirty, 'glyphicon-remove': (joinForm.email.$invalid && (joinForm.email.$dirty || joinForm.$submitted )) }" aria-hidden="true"></span>
+                      </div>
+                                                                    <!--VALIDATION-->
+                      <div style="text-align: center;height:25px;font-weight: bold;">
+                        <div ng-messages="joinForm.email.$error" ng-controller="ErrormessageController" ng-if="joinForm.email.$touched && joinForm.email.$dirty" >
+                            <validation-element></validation-element>
+                        </div> 
+                        <div ng-messages="serverValidation" ng-show="joinForm.$submitted && showServerError">
+                          <b><code>[[errors.email]]</code></b>
+                        </div>
+                      </div> 
+    
+
+ 
+                      
+                  <div class="form-group has-feedback" ng-class="{ 'has-success' : joinForm.password1.$valid && (joinForm.password1.$touched || joinForm.$submitted), 'has-error' : !joinForm.password1.$valid && (joinForm.password1.$touched || joinForm.$submitted) }">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-lock fa-2x"></i>
+                          </span>
+                          <input  ng-change="errors={}" name="password1" type="password" placeholder="Enter Password" class="form-control input-lg" ng-model="password1" required>
+                        </div>
+                        <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : joinForm.password1.$valid && joinForm.password1.$dirty, 'glyphicon-remove': (joinForm.password1.$invalid && (joinForm.password1.$dirty || joinForm.$submitted )) }" aria-hidden="true"></span>
+                  </div>
+
+                                                                    <!--VALIDATION-->
+                      <div style="text-align: center;height:25px;font-weight: bold;">
+                        <div ng-messages="joinForm.password1.$error" ng-controller="ErrormessageController" ng-if="joinForm.password1.$touched && joinForm.password1.$dirty" >
+                            <validation-element></validation-element>
+                        </div>   
+                      </div> 
+
+                  <div class="form-group has-feedback" ng-class="{ 'has-success' : joinForm.password2.$valid && (joinForm.password2.$touched || joinForm.$submitted), 'has-error' : !joinForm.password2.$valid && (joinForm.password2.$touched || joinForm.$submitted) }">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-lock fa-2x"></i>
+                          </span>
+                          <input ng-change="resetServerValidation()" ng-model="password2" name="password2" type="password" autocomplete="off" placeholder="Confirm Password" class="form-control input-lg pwdField" compare-to = "password1" required password-match>
+                        </div>
+                        <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : joinForm.password2.$valid && joinForm.password2.$dirty, 'glyphicon-remove': (joinForm.password2.$invalid && (joinForm.password2.$dirty || joinForm.$submitted )) }" aria-hidden="true"></span>
+                  </div>
+
+
+                      
+
+                                                                    <!--VALIDATION-->
+                      <div style="text-align: center;height:25px;font-weight: bold;">
+                        <div ng-messages="joinForm.password2.$error" ng-controller="ErrormessageController" ng-if="joinForm.password2.$touched && joinForm.password2.$dirty" >
+                            <validation-element></validation-element>
+
+                        </div>
+
+                      </div> 
+
+                      <div class="spacing"><input type="checkbox" name="acceptTerms" id="checkboxes-0" ng-model="acceptTerms" required> Agree to <a style="font-size: 14px" href="#/terms"><b>Terms</b></a></div>
+
+                     <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="joinForm.acceptTerms.$error" style="color:maroon" role="alert">
+                       <code ng-if="joinForm.acceptTerms.$touched || joinForm.$submitted" ng-message="required">
+                        <strong>This field is required</strong>
+                       </code>     
+                     </div> 
+<!-- 
+                      <div style="text-align: center;height:25px;font-weight: bold;">
+                        <div ng-messages="required"  ng-if="joinForm.acceptTerms.$touched || joinForm.acceptTerms.$dirty" >
+                          <code>You must accept terms</code> 
+                        </div>
+
+                      </div>  -->
+
+                      
+                      <div class="spacing"><a href="#/forgot-password"><small> Forgot Password?</small></a><br/></div>
+                      <button type="submit" class="btn btn-info btn-lg pull-right" >Sign In</button>
+                </form>
+              </div>
+              
+          </div>
+        
+      </div>
+    </div>
+
+
+    <script type="text/ng-template" id="registrationThanks.html">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Nice. You registered with HmShip!</h3>
+        </div>
+
+
+        <div class="modal-body">
+          <h5 class="text-center"> Don't forget to check your inbox and <b>verify your email address</b></h5>
+          <div class="text-center">
+            <i style="color:green;" class="fa fa-check-circle-o fa-5x" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center"> 
+            <button class="btn btn-info btn-md btn-block" ng-click="close()">Proceed to site</button> 
+          </div>  
+        </div>
+    </script>
+
+
+
+    <p><a href="#about">About</a></p>
+
+    </div>
+</body>

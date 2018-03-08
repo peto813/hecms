@@ -1,0 +1,139 @@
+<head> 
+	<style type="text/css">
+		body{
+			 background-image: url("/static/img/imageri/background logistics.jpg");
+		}
+		form[name="inspectionsForm"]{
+			background-color: white;
+			padding:20px;
+			border-radius: 10px;
+			box-shadow: 10px 10px 5px #888888;
+		}
+		th{
+			text-align:center;
+		}
+
+
+.inspections.ng-enter{
+
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.35s;
+  display:block;
+  width:100%;
+  border-bottom:1px solid black;
+  position:absolute;
+/*  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;*/
+}
+
+.inspections.ng-enter {
+  bottom:100%;
+}
+.inspections.ng-enter.ng-enter-active {
+  bottom:0;
+}
+.inspections.ng-leave.ng-leave-active {
+  bottom:-100%;
+}
+
+div.shadow:hover {
+	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	background-color: rgb(8,137,255);
+	}
+
+	</style>
+</head>
+<div class="row">
+	<div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+		
+		<form name="inspectionsForm" ng-submit="requestInspection()" novalidate>
+			<h1 class="text-center">Inspections</h1>
+			<hr>
+
+			<!--	SEARCH FIELD -->
+			<text-input form-field="inspectionsForm.searchField" name="searchField" placeholder="Search by lot #" id="id_searchField" size='lg' ng-model="searchField">
+				<label-addon>
+					<label for="id_lotnumber" class="sr-only">Search by lot Number:</label>
+				</label-addon>
+				<input-addon>
+					<i class="fa fa-search"></i>
+				</input-addon>
+			</text-input>
+
+		<!--SELECT PURCHASES FIELD-->
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : inspectionsForm.auctionItem.$valid && (inspectionsForm.auctionItem.$touched || inspectionsForm.$submitted), 'has-error' : !inspectionsForm.auctionItem.$valid && (inspectionsForm.auctionItem.$touched || inspectionsForm.$submitted) }" >
+			<label for="id_auctionItem" class="sr-only">Purchases List</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-shopping-cart"></i></div>
+				<select  id="id_auctionItem" name="auctionItem" class="form-control input-lg" ng-model="auctionItem" required>
+					<option ng-if="!searchField" value="">Select Purchase</option>
+					<option ng-if="searchField && filtered.length>0" value="">Results Found ( [[filtered.length]] )</option>
+					<option ng-if="searchField && filtered.length==0" value="">No Results </option>
+
+					<option ng-repeat="item in inspectionProducts | filter : searchField as filtered" value = "[[item.id]]" ng-show="!itemSelected(item)">[[item.item_name]] - [[item.host|capitalize]] - #[[item.lot_number]]</option>
+				</select>
+				<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : inspectionsForm.auctionItem.$valid && (inspectionsForm.inspectionType.$dirty || inspectionsForm.auctionItem.$touched ), 'glyphicon-remove': (inspectionsForm.auctionItem.$invalid && (inspectionsForm.auctionItem.$dirty || inspectionsForm.$submitted || inspectionsForm.auctionItem.$touched )) }" aria-hidden="true"></span>
+			</div>
+			<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="inspectionsForm.auctionItem.$error" style="color:maroon" role="alert">
+				   <code ng-if="inspectionsForm.auctionItem.$touched || inspectionsForm.$submitted" ng-message="required">
+				   	<strong>This field is required</strong>
+				   </code>
+			</div>
+		</div>
+
+		<!--SELECT INSPECTION TYPE FIELD-->
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : inspectionsForm.inspectionType.$valid && (inspectionsForm.inspectionType.$touched || inspectionsForm.$submitted), 'has-error' : !inspectionsForm.inspectionType.$valid && (inspectionsForm.inspectionType.$touched || inspectionsForm.$submitted) }" >
+			<label for="id_auctionItem" class="sr-only">Purchases List</label>
+			<div class="row">
+				<div class="col-xs-10">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<i class="fa fa-hashtag"></i>
+							</span>
+							<select  id="id_inspectionType" name="inspectionType" class="form-control input-lg" ng-model="inspectionType" required>
+								<option value="">Select Type</option>
+								<option ng-repeat= "inspection in inspectionTypes" value="[[inspection.id]]">[[inspection.name]]</option>
+							</select>
+							<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : inspectionsForm.inspectionType.$valid && (inspectionsForm.inspectionType.$dirty || inspectionsForm.inspectionType.$touched ), 'glyphicon-remove': (inspectionsForm.inspectionType.$invalid && (inspectionsForm.inspectionType.$dirty || inspectionsForm.$submitted || inspectionsForm.inspectionType.$touched )) }" aria-hidden="true"></span>		
+						</div>
+						<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="inspectionsForm.inspectionType.$error" style="color:maroon" role="alert">
+								<code ng-if="inspectionsForm.inspectionType.$touched || inspectionsForm.$submitted" ng-message="required">
+								   	<strong>This field is required</strong>
+								</code>
+						</div>	
+				</div>
+				<div class="col-xs-1">
+					<button type="button" ng-click="showInspectionInfo()" title="Inspection Info" class="btn btn-info btn-lg" ng-disabled="!inspectionType">
+						<i class="fa fa-question"></i>
+					</button>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+			<div class="form-group has-feedback" ng-class="{ 'has-success' : inspectionsForm.description.$valid && (inspectionsForm.description.$touched || inspectionsForm.$submitted), 'has-error' : !inspectionsForm.description.$valid && (inspectionsForm.description.$touched || inspectionsForm.$submitted) }">
+				<label for="id_description" class="sr-only"></label>
+				<textarea class="form-control" id="id_description" name="description" ng-model="description" placeholder="Please provide any additional details regarding your inspection request" required></textarea>	
+				<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="inspectionsForm.description.$error" style="color:maroon" role="alert">
+					   <code ng-if="inspectionsForm.description.$touched || inspectionsForm.$submitted" ng-message="required">
+					   	<strong>This field is required</strong>
+					   </code>
+				</div>
+				
+			</div>
+
+			<span class="bg-danger"><b>Note:</b>All arrangements according to law.....</span>
+			<input ng-disabled="!inspectionsForm.$valid" style="margin-top:10px;" type="submit" class="btn btn-block btn-success" name="submitLogistics" value="Request Inspection Service">
+
+		</form>
+
+	</div>
+</div>

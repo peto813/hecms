@@ -1,0 +1,23 @@
+	
+
+	<div class="form-group has-feedback" ng-class="{ 'has-success' : formField.$valid && (formField.$touched || form.$submitted), 'has-error' : !formField.$valid && (formField.$touched || form.$submitted) }" >
+		<label ng-transclude="labelAddon" ng-if="labelAddon"></label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<div ng-transclude="inputAddon"></div>
+			</span>
+			<input id="[[id]]" placeholder="[[placeholder]]" type="text" name="[[name]]" class="form-control" ng-class="{ 'input-[[size]]' : size }"  ng-disabled="inputDisabled" ng-model="ngModel" ng-required="inputRequired" ng-change="ngChange()" ng-pattern="ngPattern">
+		</div>
+
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : formField.$valid && formField.$dirty, 'glyphicon-remove': (formField.$invalid && (formField.$dirty || form.$submitted )) }" aria-hidden="true"></span>
+	
+		 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="formField.$error" style="color:maroon" role="alert">
+		   <code ng-if="formField.$touched || form.$submitted" ng-message="required">
+		   	<strong>This field is required</strong>
+		   </code>
+		   <code ng-if="formField.$touched || form.$submitted" ng-message="pattern">
+		   	<strong>Invalid Field</strong>
+		   </code>
+		 </div>
+
+	</div>

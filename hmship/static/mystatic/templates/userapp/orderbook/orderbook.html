@@ -1,0 +1,87 @@
+<head>
+	<style type="text/css">
+/*		.fa-trash, .fa-shopping-cart{
+			font-size: 1.35em;
+		}*/
+		.bottom{
+			font-size: 100px;
+		}
+	</style>
+</head>
+<tab-element tab-list="orderBookTabList"></tab-element>
+<panel-table 
+
+	table-search = "searchParam" 
+	search-field="true" 
+	panel-title="Order Book"
+	advanced-search = "true"
+	adv-search-fn = "searchBackend()"
+	search-date-field="true"
+>
+				<extra-element>
+
+				    <!-- Single button -->
+					    <label>services in </label>
+					    <select ng-model="transclusion.dateRange" name="dateRange" ng-change="queryDate(transclusion.dateRange)">
+					    	<option value="last30">last 30 days</option>
+					    	<option value="months-6">last 6 months</option>
+					    	<option ng-repeat="year in yearRange| orderBy:'-'" value="[[year]]">[[year]]</option>
+					    </select>	
+
+				</extra-element>
+		<div class="table-responsive">
+	 		<div class="row" style="max-width:700px;margin:10px;">
+	 			<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+			  		<button ng-disabled="!quotesApproved()" title = "Add Selection to Shopping cart" type="button" ng-click="makePayment()" class="btn btn-success">
+			  			<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+			  		</button>
+	 			</div>
+	 			<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+						<button  title="Reset Search" type="button" ng-click="refreshList()" class="btn btn-info">
+							<i class="fa fa-refresh" aria-hidden="true"></i>
+						</button>
+	 			</div>
+						<div ng-show="results_count > 0" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+							<!-- <button ng-click="searchByModal()" type="button" class="btn btn-info">Search by:</button> -->
+							<span><b>[[results_count]]</b> Results Found for : [[searchType]] "[[query_param]]"</span>
+						</div>	
+	 		</div>
+		  	<table class="table">
+		  		<tr>
+		  			<td>
+		  				<input type="checkbox" name ="selectAll" ng-model="selectAll" ng-change="selectAllChx()">
+		  			</td>
+		  			<td ng-repeat="column in colList">[[column.title]]
+		  				<i class="fa fa-caret-down" aria-hidden="true"></i>
+		  				<i class="fa fa-caret-up" aria-hidden="true"></i>
+		  			</td>
+		  		</tr>
+		  		<tbody>
+			  		<tr ng-repeat="service in OrderBook|filter : searchParam as filtered">
+			  			<td>
+			  			<!--ng-disabled="service.status!='Pending Quote'"-->
+			  				<input type="checkbox" ng-disabled="!service.quote_approved||itemInCart(service.id)||service.quote_payed" ng-model="service.checked">
+			  			</td>
+			  			<td>[[service.id]]</td>
+			  			<td><a href="" ng-click="serviceDetail(service)">[[service.service_type]]</a></td>
+			  			<td>[[service.created|date:'MMMM dd, yyyy']]</td>
+			  			<td>
+			  				<a href ="" ng-if="!itemInCart(service.id)" ng-click="serviceAction(service)">[[service.status]]<a>
+			  				<a href ="#/payments1" ng-if="itemInCart(service.id)">
+			  				<i class="fa fa-shopping-cart"></i>
+			  					[[service.status = 'In Cart']]
+			  				<a>
+			  			</td>
+		  			</tr>			
+		  		</tbody>
+		  	</table>
+	  	</div>
+</panel-table>
+
+<div class="text-center row" ng-if="quotesApproved()">
+	<div class="col-xs-4"><i class="fa fa-shopping-cart bottom" style="cursor:pointer;" title="Checkout" ng-click="makePayment()" aria-hidden="true"></i></div>
+	<div class="col-xs-4"><i ng-click="makePayment()" style="margin-left: 20px;cursor: pointer;" class="fa fa-arrow-right bottom" aria-hidden="true"></i></div>
+	<div class="col-xs-4" ng-click="makePayment()" style="font-size: 50px;font-weight: bold;cursor: pointer;"><span>Proceed to checkout!</span></div>
+	
+</div>
+

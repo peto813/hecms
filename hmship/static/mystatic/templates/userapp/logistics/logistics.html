@@ -1,0 +1,229 @@
+<head>
+	<style type="text/css">
+		body{
+			 background-image: url("/static/img/imageri/background logistics.jpg");
+		}
+		form[name="logisticsForm"]{
+			background-color: white;
+			padding:20px;
+			border-radius: 10px;
+			box-shadow: 10px 10px 5px #888888;
+		}
+		th{
+			text-align:center;
+		}
+
+
+.logistics.ng-enter{
+
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.35s;
+  display:block;
+  width:100%;
+  border-bottom:1px solid black;
+  position:absolute;
+/*  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;*/
+}
+
+.logistics.ng-enter {
+  bottom:100%;
+}
+.logistics.ng-enter.ng-enter-active {
+  bottom:0;
+}
+.logistics.ng-leave.ng-leave-active {
+  bottom:-100%;
+}
+
+	</style>
+</head>
+<p class="text-center" style="font-size:40px;font-weight: bold;margin-bottom: 20px;">We consolidate your purchases and ship'em!</p>
+
+
+
+<div class="row">
+	<div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+		
+		<form name="logisticsForm" ng-submit="requestLogisticsService()" novalidate>
+			<h1 class="text-center">Logistics</h1>
+		<hr>
+		<p class="bg-danger" ng-if="userProducts.length < 1">You don't have any available <b>auction purchases</b>, click <a href="#/auctionproducts">here</a> to load auction purchases</p>
+		<input type="number" name="tableFilled" ng-model="tableLength" min = "1" hidden required>
+		<!--ng-model="tableLength=selectedPurchases.length" ng-min="[[selectedPurchases.length > 0]]"-->
+
+
+		<!--SELECT AUCTION FIELD-->
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : logisticsForm.auctionSite.$valid && (logisticsForm.auctionSite.$touched || logisticsForm.$submitted), 'has-error' : !logisticsForm.auctionSite.$valid && (logisticsForm.auctionSite.$touched || logisticsForm.$submitted) }" >
+			<label for="id_auctionItem" class="sr-only">Auction Name</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-globe"></i></div>
+				<select ng-disabled="selectedPurchases.length>0" style="font-size: 15px;" id="id_auctionSite" name="auctionSite" class="form-control input-lg" ng-model="auctionSite" required>
+				<option value="">Select Auction</option>
+					<option ng-repeat="item in auctionList()" value = "[[item.id]]">[[item.host|capitalize]]: [[item.city|capitalize]],  [[item.state_providence|capitalize]], [[item.country|capitalize]]- [[item.auction_begin|date:'dd MMMM yyyy']]</option>
+				</select><!--ng-disabled="itemSelected(item)"-->
+<!-- 				<div class="input-group-addon">
+					<button type="button" ng-disabled="!logisticsForm.auctionItem.$viewValue" class="btn btn-success btn-sm" ng-click="addPurchase()"><i class="fa fa-plus"></i></button>
+				</div> -->
+			</div>
+	 		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : logisticsForm.auctionSite.$valid && logisticsForm.auctionSite.$dirty, 'glyphicon-remove': (logisticsForm.auctionSite.$invalid && (logisticsForm.auctionSite.$dirty || logisticsForm.$submitted )) }" aria-hidden="true"></span> 
+
+			 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="logisticsForm.auctionSite.$error" style="color:maroon" role="alert">
+			   <code ng-if="logisticsForm.auctionSite.$touched || logisticsForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>	   
+			 </div>	
+
+		</div>
+
+
+
+		<!--	SEARCH FIELD -->
+		<text-input form-field="logisticsForm.searchField" name="searchField" placeholder="Search by lot #" id="id_searchField" size='lg' ng-model="searchField" ng-change="auctionItem = ''" input-disabled="!auctionSite">
+			<label-addon>
+				<label for="id_lotnumber" class="sr-only">Search by lot Number:</label>
+			</label-addon>
+			<input-addon>
+				<i class="fa fa-search"></i>
+			</input-addon>
+		</text-input>
+
+		<!--SELECT PURCHASES FIELD-->
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : logisticsForm.auctionItem.$valid && (logisticsForm.auctionItem.$touched || logisticsForm.$submitted), 'has-error' : !logisticsForm.auctionItem.$valid && (logisticsForm.auctionItem.$touched || logisticsForm.$submitted) }" >
+			<label for="id_auctionItem" class="sr-only">Purchases List</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-shopping-cart"></i></div>
+				<select  ng-disabled="!auctionSite" id="id_auctionItem" name="auctionItem" class="form-control input-lg" ng-model="auctionItem"  items-in-list="selectedPurchases">
+					<option ng-if="!searchField" value="">Select Purchase</option>
+					<option ng-if="searchField && filtered.length>0" value="">Results Found ( [[filtered.length]] )</option>
+					<option ng-if="searchField && filtered.length==0" value="">No Results </option>
+
+					<option ng-repeat="item in auctionItems() | filter : searchField as filtered" value = "[[item]]" ng-if="!itemSelected(item)">[[item.item_name]] - #[[item.lot_number]]</option>
+				</select><!--ng-disabled="itemSelected(item)"-->
+				<div class="input-group-addon">
+					<button type="button" ng-disabled="!logisticsForm.auctionItem.$viewValue" class="btn btn-success btn-sm" ng-click="addPurchase()"><i class="fa fa-plus"></i></button>
+				</div>
+			</div>
+	<!-- 		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : logisticsFauctionItemorm.auctionItem.$valid && logisticsForm.auctionItem.$dirty, 'glyphicon-remove': (logisticsForm.auctionItem.$invalid && (logisticsForm.auctionItem.$dirty || logisticsForm.$submitted )) }" aria-hidden="true"></span> -->
+
+			 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="logisticsForm.auctionItem.$error" style="color:maroon" role="alert">
+			   <code ng-if="logisticsForm.auctionItem.$touched || logisticsForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>
+			   <code ng-if="logisticsForm.auctionItem.$touched || logisticsForm.$submitted" ng-message="itemsInList">
+			   	<strong>No purchase(s) added</strong>
+			   </code>			   
+			 </div>	
+
+		</div>
+
+
+
+<!-- SELECTED PURCHASES TABLE -->
+<div class="row">
+	<div class="col-xs-12">
+		<!-- <span ng-show = "selectedPurchases.length==0" class="bg-danger">Please add purchases to the list</span> -->
+	  <table ng-show="selectedPurchases.length>0" class="table table-condensed text-center">
+	    <thead>
+	      <tr >
+	        <th>Item Name</th>
+	        <th>Auction</th>
+	        <th>Lot Number</th>
+	        <th>Remove</th>
+	      </tr>
+	    </thead>
+	    <tbody class="well">
+	      <tr ng-repeat="item in selectedPurchases">
+	        <td>[[item.item_name]]</td>
+	        <td>[[item.host|capitalize]]</td>
+	        <td>[[item.lot_number]]</td>
+	        <td><button class="btn btn-danger" ng-click = "deleteFromList(item.id)"><i class="fa fa-minus"></i></button></td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+</div>
+
+  <label>
+    <input type="radio" ng-change="otherOriginReset()" ng-model="originSelect" value="auction">
+    Auction Site
+  </label>
+  <label style="margin-left:10px;">
+    <input type="radio" ng-model="originSelect" value="other">
+    Other
+  </label><br/>
+
+
+
+ 
+ 								<!--OTHER ORIGIN FIELD-->
+
+    <div class="form-group has-feedback" ng-class="{ 'has-success' : logisticsForm.otherOrigin.$valid && (logisticsForm.otherOrigin.$touched || logisticsForm.$submitted), 'has-error' : !logisticsForm.otherOrigin.$valid && (logisticsForm.otherOrigin.$touched || logisticsForm.$submitted) }">
+    	<label for="autocomplete" class="sr-only">Custom Origin:</label>
+	    <div class="input-group">
+	    	<span class="input-group-addon">
+	    		<i class="fa fa-location-arrow"></i>
+	    	</span>
+	    	<input id="autocomplete" placeholder="Origin address"  type="text" class="form-control input-lg" ng-required="originSelect!='auction'" ng-readonly="originSelect=='auction'" ng-model="otherOrigin" name="otherOrigin" google-maps-autocomplete="googleOtherOriginData"></input>
+	    </div>
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : logisticsForm.otherOrigin.$valid && logisticsForm.otherOrigin.$dirty, 'glyphicon-remove': (logisticsForm.otherOrigin.$invalid && (logisticsForm.otherOrigin.$dirty || logisticsForm.$submitted )) }" aria-hidden="true"></span>
+		
+		<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="logisticsForm.otherOrigin.$error" style="color:maroon" role="alert">
+			   <code ng-if="logisticsForm.otherOrigin.$touched || logisticsForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>
+		</div>
+    </div>
+
+
+
+    							<!--DESTINATION FIELD-->
+
+    <div class="form-group has-feedback" ng-class="{ 'has-success' : logisticsForm.destination.$valid && (logisticsForm.destination.$touched || logisticsForm.$submitted), 'has-error' : !logisticsForm.destination.$valid && (logisticsForm.destination.$touched || logisticsForm.$submitted) }">
+    	<label for="autocomplete2" class="sr-only">Destination:</label>
+	    <div class="input-group">
+	    	<span class="input-group-addon">
+	    		<i class="fa fa-location-arrow"></i>
+	    	</span>
+	    	<input id="autocompleteEmail_Confirmation_Message2" placeholder="Destination Address" type="text" class="form-control input-lg"  ng-model="destination" name="destination" google-maps-autocomplete="googleDestinationData" required></input>
+	    </div>
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : logisticsForm.destination.$valid && logisticsForm.destination.$dirty, 'glyphicon-remove': (logisticsForm.destination.$invalid && (logisticsForm.destination.$dirty || logisticsForm.$submitted )) }" aria-hidden="true"></span>
+
+		<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="logisticsForm.destination.$error" style="color:maroon" role="alert">
+			   <code ng-if="logisticsForm.destination.$touched || logisticsForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>
+		</div>
+    </div>
+
+
+ 								<!--Description  FIELD-->
+
+    <div class="form-group has-feedback" ng-class="{ 'has-success' : logisticsForm.description.$valid && (logisticsForm.description.$touched || logisticsForm.$submitted), 'has-error' : !logisticsForm.description.$valid && (logisticsForm.description.$touched || logisticsForm.$submitted) }">
+    	<label for="id_description" class="sr-only">Description:</label>
+	    <div class="input-group">
+	    	<span class="input-group-addon">
+	    		<i class="fa fa-location-arrow"></i>
+	    	</span>
+	    	<textarea id="id_description" placeholder="Please provide any additional information"  type="text" class="form-control input-lg" ng-model="description" name="description"></textarea>
+	    </div>
+		<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : logisticsForm.description.$valid && logisticsForm.description.$dirty, 'glyphicon-remove': (logisticsForm.description.$invalid && (logisticsForm.description.$dirty || logisticsForm.$submitted )) }" aria-hidden="true"></span>
+		
+		<div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="logisticsForm.description.$error" style="color:maroon" role="alert">
+			   <code ng-if="logisticsForm.description.$touched || logisticsForm.$submitted" ng-message="required">
+			   	<strong>This field is required</strong>
+			   </code>
+		</div>
+    </div>
+
+
+	
+
+			<input style="margin-top:10px;" ng-disabled="!logisticsForm.$valid" type="submit" class="btn btn-block btn-success btn-lg" name="submitLogistics" value="Request Logistics Service">
+		</form>
+	</div>
+</div>
+
+

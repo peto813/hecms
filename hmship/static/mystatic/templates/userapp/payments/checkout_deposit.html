@@ -1,0 +1,108 @@
+<head>
+	<style type="text/css">
+		.title{
+			font-weight: bold;
+		}
+
+	</style>
+</head>
+<div style="padding:20px;max-width: 600px;margin:0 auto;">
+	<form  name = "bankDepositForm" novalidate>
+		<hr>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<h2><i class="fa fa-university"></i><span style="margin-left: 5px;">Bank Deposits</span></h2>
+			</div>
+		</div>
+		<p class="text-center">Place make payments in avilable bank accounts</p>
+		<div class="form-group has-feedback" ng-class="{ 'has-success' : bankDepositForm.bank.$valid && (bankDepositForm.bank.$touched || bankDepositForm.$submitted), 'has-error' : !bankDepositForm.bank.$valid && (bankDepositForm.bank.$touched || bankDepositForm.$submitted) }" style="margin-top:20px;">
+			<label for ="id_bank" class="sr-only">Select a payment Method</label>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="fa fa-usd"></i>
+				</span>
+				<select id="id_bank" ng-model="bank" ng-change="showBank()" name="bank" class="form-control input-lg" required>
+					<option value="" disabled>Select Bank</option>
+					<option ng-repeat="account in bankAccounts" value="[[account]]">[[account.bank]]</option>
+	<!-- 				<option value="paypal">Paypal</option>
+					<option value="deposit">Deposit/Transfer</option> -->
+				</select>			
+			</div>
+			<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : bankDepositForm.bank.$valid && bankDepositForm.bank.$dirty, 'glyphicon-remove': (bankDepositForm.bank.$invalid && (bankDepositForm.bank.$dirty || bankDepositForm.$submitted )) }" aria-hidden="true"></span>
+
+			 <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="bankDepositForm.bank.$error" style="color:maroon" role="alert">
+			   <code ng-if="bankDepositForm.bank.$touched || bankDepositForm.$submitted" ng-message="required">
+			   	<strong>Select a payment method</strong>
+			   </code>
+	<!-- 		   <code ng-if="bankDepositForm.bank.$touched || bankDepositForm.$submitted" ng-message="pattern">
+			   	<strong>Invalid Field</strong>
+			   </code> -->
+			 </div>
+		</div>
+	</form>
+
+	<div style="padding:10px;border-radius:5px;height:200px;margin:0 auto;border:2px solid rgb(242,241,240);">
+
+			<div ng-if="showBank().id">
+				<div class="row">
+					<div>
+						<div class="col-xs-4 title">
+							<span>Bank:</span>
+						</div>
+						<div class="col-xs-8">
+							[[showBank().bank]]
+						</div>		
+					</div>
+				</div>
+
+				<div class="row">
+					<div>
+						<div class="col-xs-4 title">
+							<span>Account:</span>
+						</div>
+						<div class="col-xs-8">
+							[[showBank().account_number]]
+						</div>		
+					</div>
+				</div>
+
+				<div class="row">
+					<div>
+						<div class="col-xs-4 title">
+							<span>ABA:</span>
+						</div>
+						<div class="col-xs-8">
+							[[showBank().aba_number]]
+						</div>		
+					</div>
+				</div>
+
+				<div class="row">
+					<div>
+						<div class="col-xs-4 title">
+							<span>Routing:</span>
+						</div>
+						<div class="col-xs-8">
+							[[showBank().routing_number]]
+						</div>		
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div>
+						<div class="col-xs-6 title">
+							<span>Total:</span>
+						</div>
+						<div class="col-xs-6">
+							<span>
+								<b>[[total()| currency: '$' : 2]]</b>
+							</span>
+						</div>		
+					</div>
+				</div>
+			</div>
+
+	</div>
+	<button ng-disabled="!bankDepositForm.$valid" ng-click="registerPayment(bank)" type="button" class="btn btn-info btn-lg btn-block">Register Payment</button>
+
+</div>

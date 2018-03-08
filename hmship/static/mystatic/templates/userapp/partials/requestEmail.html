@@ -1,0 +1,99 @@
+        <form ng-submit="registerEmailPost()" name="registerEmail" novalidate> 
+        <div class="row">
+          <div class="col-xs-12">
+<!-- <button style="margin-right: 5px;margin-top: 10px;" type="button" class="close"  >X</button> -->
+          <i style="margin-right: 5px;margin-top: 10px;cursor: pointer;" class="fa fa-times pull-right" aria-hidden="true" ng-click="cancel()"></i>
+          </div>
+        </div>
+        
+        <div class="modal-header">
+            <h3 class="modal-title text-center">
+              <span style="padding-bottom: 20px;">Please enter an email address</span>
+            </h3>
+        </div>
+
+
+        <div class="modal-body">
+        <p class="bg-warning" style="font-weight:bold;">Our records show that you do not have an email address for this account!</p>
+          
+            <div class="form-group">
+              <label class="sr-only" for="id_oldPwd">Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-envelope fa-2x"></i></div>
+
+
+                <!--  PREVENT AUTO COMPLETE-->
+                 <input type="text" style="display:none">
+                 <input type="password" style="display:none">
+
+                <input placeholder="Email" class="form-control input-lg" type="email" id="id_email" name="email" ng-model="email" ng-change="resetValidator()" required> 
+              </div>
+                                                            <!--VALIDATION-->
+              <div style="text-align: center;height:25px;font-weight: bold;">
+                <div ng-messages="registerEmail.email.$error" ng-controller="ErrormessageController" ng-if="registerEmail.email.$touched && registerEmail.email.$dirty" >
+                    <validation-element></validation-element>
+                </div> 
+<!--                 <div ng-messages="serverValidation" ng-show="registerEmail.$submitted && showServerError">
+                  <b><code>[[errors.old_password]]</code></b>
+                </div> -->
+                <div style="height:20px;">
+                  <code ng-show="error" ><b>[[error]]</b></code> 
+                </div>
+              </div> 
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="id_oldPwd">Confirm Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-envelope fa-2x"></i></div>
+
+
+                <!--  PREVENT AUTO COMPLETE-->
+                 <input type="text" style="display:none">
+                 <input type="password" style="display:none">
+
+                <input placeholder="Confirm Email" class="form-control input-lg" type="email" id="id_emailConfirm" name="emailConfirm" ng-model="emailConfirm" compare-to ="email" field-match required> 
+              </div>
+                                                            <!--VALIDATION-->
+              <div style="text-align: center;height:25px;font-weight: bold;">
+                <div ng-messages="registerEmail.emailConfirm.$error" ng-controller="ErrormessageController" ng-if="registerEmail.emailConfirm.$touched && registerEmail.emailConfirm.$dirty" >
+                    <validation-element></validation-element>
+                </div> 
+              </div> 
+            </div>
+
+<!--             <div class="form-group">
+              <label class="sr-only" for="id_newPwd1">New Password</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock fa-2x"></i></div>
+                 <input class="form-control input-lg" placeholder="New Password" type="password" id="id_newPwd1" name="newPwd1" ng-model="newPwd1" ng-minlength="8" required>     
+              </div>
+                                                        
+              <div style="text-align: center;height:25px;font-weight: bold;">
+                <div ng-messages="registerEmail.newPwd1.$error" ng-controller="ErrormessageController" ng-if="registerEmail.newPwd1.$touched && registerEmail.newPwd1.$dirty" >
+                    <validation-element></validation-element>
+                </div>   
+              </div> 
+            </div> -->
+
+<!--             <div class="form-group">
+              <label class="sr-only" for="id_newPwd2">Confirm New Password</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock fa-2x"></i></div>
+                  <input placeholder="Confirm Password" class="form-control input-lg" id="id_newPwd2" type="password" name="newPwd2" ng-model="newPwd2" compare-to = "newPwd1" password-match required>     
+              </div>
+                                                         
+              <div style="text-align: center;height:25px;font-weight: bold;">
+                <div ng-messages="registerEmail.newPwd2.$error" ng-controller="ErrormessageController" ng-if="registerEmail.newPwd2.$touched && registerEmail.newPwd2.$dirty" >
+                    <validation-element></validation-element>
+                </div>   
+              </div> 
+            </div>  -->        
+          
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-lg" type="button" ng-click="cancel()">Cancel</button>
+          <input type="submit" class="btn btn-success btn-lg" ng-disabled="!registerEmail.$valid" value="Register Email">
+        </div>
+       </form>
+

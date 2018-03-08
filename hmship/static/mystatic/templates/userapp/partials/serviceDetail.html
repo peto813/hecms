@@ -1,0 +1,155 @@
+
+
+        <button style="margin-right: 10px;margin-top: 10px;" ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Service Details</h3>
+        </div>
+
+
+        <div class="modal-body">
+
+          <div ng-if="service.service_type == 'Inspections'">
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Type:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.inspections.inspection_type.name]]
+              </div>
+            </div>
+<!-- 
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Lot Number:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.inspections.auction_products]]
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Item:</b>
+              </div>
+              <div class="col-xs-6">
+                  <div ng-repeat="product in service.auction_products">
+                      [[product.item_name]] ( Lot #[[product.lot_number]]  )
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Description:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.inspections.description]]
+              </div>
+            </div>
+          </div>
+
+
+
+          <div ng-if="service.service_type == 'Logistics'">
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Origin:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.logistics.origin|separateNumberLetter]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Destination:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.logistics.destination]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Description:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.logistics.description|separateNumberLetter]]
+              </div>
+            </div>
+          </div>
+
+
+
+          <div ng-if="service.service_type == 'Maintenance'">
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Type:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.maintenance.maintenance_type|capitalize]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Parts Provider:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.maintenance.parts_provider]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Description:</b>
+              </div>
+              <div class="col-xs-6">
+                [[service.maintenance.description]]
+              </div>
+            </div>
+  <!-- 
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Address:</b>
+              </div>
+              <div class="col-xs-6">
+                [[auctionDetails.address]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>City:</b>
+              </div>
+              <div class="col-xs-6">
+                [[auctionDetails.city]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>State/Prov:</b>
+              </div>
+              <div class="col-xs-6">
+                [[auctionDetails.state_providence]]
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <b>Country:</b>
+              </div>
+              <div class="col-xs-6">
+                [[auctionDetails.country|capitalize]]
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+<!--           <input ng-disabled="!uploadProductForm.$valid" type="submit" name="uploadProductButton" value="Update Product" class="btn btn-success btn-block">  -->
+            <button type="button" class="btn btn-info btn-md btn-block" ng-click="cancel()">OK</button> 
+          </div>  
+        </div>

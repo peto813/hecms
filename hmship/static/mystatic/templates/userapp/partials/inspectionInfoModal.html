@@ -1,0 +1,113 @@
+<!-- Trigger the modal with a button -->
+
+
+<!-- Modal -->
+
+      <div class="modal-header">
+          <div class="col-xs-12">
+<!-- <button style="margin-right: 5px;margin-top: 10px;" type="button" class="close"  >X</button> -->
+          <i style="margin-right: 5px;margin-top: 10px;cursor: pointer;" class="fa fa-times pull-right" aria-hidden="true" ng-click="cancel()"></i>
+          </div>
+        <h3 class="modal-title text-center">[[inspection_type_info.name|capitalize]] information</h3>
+      </div>
+      <div class="modal-body">
+<!-- 
+<head>
+  <style type="text/css">
+    body{
+      padding-top: 80px;
+    }
+    .subhead2{
+      font-size: 10px;
+      line-height: 10px;
+      text-transform: uppercase;      
+    }
+    .bottomGreyBorder{
+          font-family: "Roboto",Arial,Helvetica,sans-serif;
+          box-sizing: border-box;
+    }
+
+  </style>
+
+</head> -->
+
+<div id="top"></div>
+
+
+
+    <div class="panel panel-default" style="padding:20px;">
+      <!-- Default panel contents -->
+<!--       <div class="panel-heading text-center" style="background: rgb(95,99,105);color:white;"><h3 style="font-weight:bold;">Inspection Report</h3></div> -->
+      <div class="panel-body">
+
+        <div class="row">
+
+          <div class="col-xs-4" style="margin-bottom:10px;" ng-repeat="item in inspection_type_info.section">
+            <a>[[item.name]]</a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+<div ng-repeat="item in inspection_type_info.section">
+  <h4  style="font-weight: bold;" id="section[[item.id]]">[[item.name]]</h4>
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr class="bottomGreyBorder">
+            <td class="subhead2" ><b>Description</b></td>
+            <td class="subhead2" ><b>Rating</b></td>
+            <td class="subhead2" ><b>Details</b></td>
+            <td class="subhead2" ><b>Picture</b></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in item.inspection_types_sections_items_set">
+            <!-- <input type="text" name="pk_{{row.id}}" value="{{row.id}}" hidden> -->
+            <td width="35%">[[row.description]]</td>
+            <td width="15%">
+            <!--uib-popover-html="htmlPopover" popover-trigger="'mouseenter'"-->
+              <p style="color:green;"><i popover-trigger="'mouseenter'" uib-popover-template="popover_html" style="cursor: pointer;" class="fa fa-star fa-2x" ></i></p>
+<!--               <select class="form-control input-sm" name="item_rating_{{row.id}}">
+                <option value="" >Select</option>
+                <option value="4">No visible wear or defects</option>
+                <option value="3">Performs within tolerances expected for age and type of item</option>
+                <option value="2">Although performing, needs repair or replacement</option>
+                <option value="1">Needs immediate repair/replacement</option>
+              </select> -->
+            </td>
+            <td width="40%">
+              <p>Details about the inspection</p>
+              <!-- <input placeholder="Details" type="text" class="form-control" name="item_details_{{row.id}}" id="item_details_{{row.id}}"></td> -->
+            <td width="10%" > <!--ng-click="uploadPic({{row.id}})"-->
+
+<!--              <input type="file" id="item_pic_{{row.id}}" name="item_pic_{{row.id}}" style="visibility:hidden;position:absolute;top:0;left:0">
+              <i style="cursor: pointer" class="fa fa-camera fa-2x"></i> -->
+              <span><i class="fa fa-camera fa-2x"></i></span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+</div>
+
+
+<!-- 
+ <footer style="height:100px;">
+  <h4 class="text-center"><a href="#top">Top</a></h4>
+</footer> 
+ -->
+
+
+
+
+
+    </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-block" ng-click="cancel()">Close</button>
+      </div>
+
+
+

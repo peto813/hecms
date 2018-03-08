@@ -1,0 +1,51 @@
+
+        <button type="button" class="close" data-dismiss="modal" ng-click="cancel()" aria-hidden="true">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Order Details</h3>
+        </div>
+
+
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-6">
+                <td><b>City:</b> </td>
+              </div>
+              <div class="col-xs-6">
+                <td>[[order.city]]</td>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <td><b>State/Providence:</b></td>
+              </div>
+              <div class="col-xs-6 col-md-6">
+                <td>[[order.state_providence]]</td>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <td><b>Country:</b></td>
+              </div>
+              <div class="col-xs-6 col-md-6">
+                <td>[[order.country]]</td>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-md-6">
+                <td><b>Details:</b></td>
+              </div>
+              <div class="col-xs-6 col-md-6">
+                <td>[[order.description]]</td>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center"> 
+            <button class="btn btn-info btn-md btn-block" ng-click="cancel()">OK</button> 
+          </div>  
+        </div>

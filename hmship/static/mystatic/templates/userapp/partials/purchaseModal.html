@@ -1,0 +1,108 @@
+
+      <form ng-submit ="uploadProduct()" name = "uploadProductForm" novalidate>
+        <button style="margin-right: 10px;margin-top: 10px;" ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Modify Purchase Details</h3>
+        </div>
+
+
+        <div class="modal-body">
+        <div class="form-group has-feedback" ng-class="{ 'has-success' : uploadProductForm.auctionName.$valid && (uploadProductForm.auctionName.$touched || uploadProductForm.$submitted), 'has-error' : !uploadProductForm.auctionName.$valid && (uploadProductForm.auctionName.$touched || uploadProductForm.$submitted) }" >
+          <label for="id_auctionName">Auction Name</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-truck"></i></div>
+            <select id="id_auctionName" name="auctionName" class="form-control input-lg" ng-model="uploadFields.auctionName" required>
+              <option value="">Select an Auction</option>
+              <option ng-repeat ="auction in auctionList" value="[[auction.id]]">[[auction.host]]</option>
+            </select>
+<!--             <select id="id_auctionName" name="auctionName" class="form-control input-lg" ng-model="uploadFields.auctionName" required>
+              <option value="">Select Auction</option>
+              <option ng-repeat="option in optionsList" value="[[option.id]]">[[option.host]] : [[option.auction_begin|date:'dd MMMM yyyy']] - [[option.auction_end|date:'dd MMMM yyyy']] - [[option.country]], [[option.state_providence]], [[ option.city]], [[option.zip_code||'']]</option>
+            </select> -->
+          </div>
+          <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : uploadProductForm.auctionName.$valid && uploadProductForm.auctionName.$dirty, 'glyphicon-remove': (uploadProductForm.auctionName.$invalid && (uploadProductForm.auctionName.$dirty || uploadProductForm.$submitted )) }" aria-hidden="true"></span>
+
+           <div style="position:relative;font-size:14px;height:20px;text-align:center;" ng-messages="uploadProductForm.auctionName.$error" style="color:maroon" role="alert">
+             <code ng-if="uploadProductForm.auctionName.$touched || uploadProductForm.$submitted" ng-message="required">
+              <strong>This field is required</strong>
+             </code>
+           </div> 
+        </div>
+
+        <text-input form-field="uploadProductForm.lot_number" name="lot_number" placeholder="Lot Number" id="id_lot_number" size='lg' ng-model="uploadFields.lot_number"  input-required="true">
+          <label-addon>
+            <label for="id_lotnumber">Lot Number:</label>
+          </label-addon>
+          <input-addon>
+            <i class="fa fa-hashtag"></i>
+          </input-addon>
+        </text-input>
+
+
+        <text-input form-field="uploadProductForm.item_name" name="item_name" placeholder="What did you buy?" id="id_item_name" size='lg' ng-model="uploadFields.item_name"  input-required="true">
+          <label-addon>
+            <label for="id_item_name" >Item Name:</label>
+          </label-addon>
+          <input-addon>
+            <i class="fa fa-hashtag"></i>
+          </input-addon>
+        </text-input>
+
+      <text-input form-field="uploadProductForm.description" name="description" placeholder="Brief description of product" id="id_description" size='lg' ng-model="uploadFields.description"  input-required="true">
+        <label-addon>
+          <label for="id_lotnumber" >Description:</label>
+        </label-addon>
+        <input-addon>
+          <i class="fa fa-hashtag"></i>
+        </input-addon>
+      </text-input>
+
+      <div>
+        
+        <!-- <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div> -->
+      <!-- Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div> -->
+<!--      <div class="thumbnails">
+        <img class="img-responsive" height="inherit" width="auto" ngf-thumbnail="mobilePhoto || 'static/img/pictureplaceholder.jpg'">
+      </div> -->
+
+      <div style="margin-top: 10px;" ng-show="f.progress >= 0">
+        <uib-progressbar value="f.progress">[[f.progress]] %</uib-progressbar>
+      </div>
+
+      <div style="height:20px;margin-bottom:15px;">
+        <h4 ng-show="selectedFile" class="text-center">[[selectedFile.name]] ( [[selectedFile.size/1000000 | number: 2]] MB )<a ng-click="picPreview( 'md', selectedFile)" style="margin-left:5px;" href="">View</a>
+        </h4>
+        <div class="text-center">
+          <code ng-show="uploadProductForm.productPicture.$error.required && uploadProductForm.productPicture.$touched"><b>No picture selected</b></code><br>
+              <code ng-show="uploadProductForm.productPicture.$error.maxSize"></b>File too large <b></code>
+              <code ng-show="uploadProductForm.productPicture.$error.pattern"></b>Wrong file type<b> </code>        
+        </div>
+    
+      </div>
+
+      <button type="button" class="btn btn-default btn-block"
+          ng-model="uploadFields.mobilePhoto"
+          ngf-select="select($event, $file)"
+          ngf-capture="'camera'"
+          accept="image/*"
+          ng-required="true"
+          ngf-pattern="'image/*'" 
+          ngf-max-height="4000" 
+          ngf-max-size="5MB"
+          name="productPicture"
+          >
+          <i class="fa fa-camera fa-2x"></i>
+      </button>
+<!-- 
+      <div style="margin-bottom:20px;margin-top:20px;max-height:200px;max-width:200px;border-radius: 5px;"> -->
+
+      
+      </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+          <input ng-disabled="!uploadProductForm.$valid || uploadProductForm.$pristine" type="submit" name="uploadProductButton" value="Update Product" class="btn btn-success btn-block"> 
+            <button type="button" class="btn btn-danger btn-md btn-block" ng-click="cancel()">Cancel</button> 
+          </div>  
+        </div>
+      </form>

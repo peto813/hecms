@@ -1,0 +1,15 @@
+
+    <label for = "selectYear" class="sr-only">Year: </label>
+    <select ng-change="dateselect()" class ="year" id="selectYear" ng-model="years" name="year">
+        <option value="" readonly selected>Year</option>
+        <option  ng-repeat="year in yearList(minDate, maxDate)|orderBy:'-'">[[ year ]]</option>
+    </select> 
+
+    <label for = "selectMonth" class="sr-only">Month: </label>
+    <select ng-change="dateselect()" id="selectMonth" class ="month" ng-model="months" name="months">
+        <option value="">Month</option>
+        <option ng-show="!dateCheck(years, month.value)" value="[[ month.value ]]" ng-repeat="month in monthList"><span style="font-weight:bold;">[[ month.name ]]</span></option>
+    </select>  
+    <ng-transclude></ng-transclude>
+
+

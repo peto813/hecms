@@ -1,0 +1,18 @@
+
+
+
+<div class="modal-header">
+  <h2 class="text-center">Service Report</h2><i class="fa fa-times pull-right" ng-click="cancel()" style="cursor:pointer"></i>
+</div>
+  <button type="button" class="close" ng-click="cancel()" aria-label="Close">
+  </button>
+<div class="modal-body">
+
+
+<!--   <object type="application/pdf" ng-attr-data="[[pdf.report]]" width="100%" height="500" style="height: 85vh;">No Support</object> -->
+
+	<pdf src = "pdf.report"></pdf>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-block" ng-click="cancel()">Close</button>
+</div>

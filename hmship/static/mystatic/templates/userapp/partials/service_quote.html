@@ -1,0 +1,58 @@
+<head>
+  <style type="text/css">
+    .modal-body .row{
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<div ng-if="!hide_modal">
+  
+
+        <button style="margin-right: 10px;margin-top: 10px;" ng-click="cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <div class="modal-header">
+            <h3 class="modal-title text-center">Service Quotes</h3>
+        </div>
+
+
+        <div class="modal-body">
+
+          <table class="table table-responsive table-condensed">
+            <thead style="font-weight: bold;">
+              <tr>
+                <td>Type</td>
+                <td>Price</td>
+                <td ng-if="">Attachment</td>
+                <td>Approve</td>
+                <td>Reject</td>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>[[service.service_type]]</td>
+                <td>[[service.quote_price|currency : $ : 2]]</td>
+                <td ng-if="service.quote_file"><a ng-href="[[service.quote_file]]"><button class="btn btn-info"><i class="fa fa-file fa-2x"></i></button></a></td>
+                <td><button ng-click="respondToQuote(true)" class="btn btn-success"><i style="cursor:pointer;" class="fa fa-thumbs-up fa-2x"></i></button></td>
+                <td><button ng-click="respondToQuote(false)" class="btn btn-danger"><i style="cursor:pointer;" class="fa fa-thumbs-down fa-2x"></i></button></td>
+              </tr>
+
+<!--               <tr ng-if="maintenance">
+                <td>Maintenance</td>
+                <td>[[maintenance.quote_price|currency : $ : 2]]</td>
+                <td><a ng-href="[[maintenance.quote_file]]"><button class="btn btn-info"><i class="fa fa-file fa-2x"></i></button></a></td>
+                <td><button ng-click="respondToQuote(true, 'maintenance')" class="btn btn-success"><i style="cursor:pointer;" class="fa fa-thumbs-up fa-2x"></i></button></td>
+                <td><button ng-click="respondToQuote(false, 'maintenance')" class="btn btn-danger"><i style="cursor:pointer;" class="fa fa-thumbs-down fa-2x"></i></button></td>
+              </tr> -->
+
+            </tbody>
+          </table>
+
+
+        </div>
+        <div class="modal-footer">
+          <div class="text-center"> 
+            <button class="btn btn-danger btn-md btn-block" ng-click="cancel()">Close</button> 
+          </div>  
+        </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+	<h1>Parts and Accessories</h1>
+	<form name="partsAccessoriesForm" ng-submit="" novalidate>
+		<lot-number></lot-number>
+		<div class="form-group">
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-cogs"></i></div>
+			 	<select class="form-control input-lg" ng-model="make" name="make" id="id_make" required>
+					<option value="">Select Model Make</option>
+					<option>Parts</option>
+					<option>Fluids/Filters</option>
+					<option>Body Jobs</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group" >
+			<label for="id_year" class="sr-only">year</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+			 	<select ng-disabled="make==undefined" class="form-control input-lg" ng-model="year" name="year" id="id_year" required>
+					<option value="">Select Fabrication year</option>
+					<option>2017</option>
+					<option>2016</option>
+					<option>2015</option>
+					<option>2014</option>
+					<option>2013</option>
+					<option>2012</option>
+					<option>2010</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group" >
+			<label for="id_vinNumber" class="sr-only">Vin Number</label>
+			<div class="input-group">
+				<div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+				<input ng-disabled="year==undefined" type="text" id="id_vinNumber" name="vinNumber" ng-model="vinNumber" placeholder="Vin Number" class="form-control input-lg">
+			</div>
+		</div>
+		<span class="bg-danger"><b>Note:</b>All arrangements according to law.....</span>
+		<input style="margin-top:10px;" type="submit" class="btn btn-block btn-success" name="submitLogistics" value="Request Logistics Service">
+		
+	</form>
+	</div>
+</div>

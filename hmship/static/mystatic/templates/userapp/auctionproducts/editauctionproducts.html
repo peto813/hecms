@@ -1,0 +1,139 @@
+
+<head>
+	<style type="text/css">
+
+.thumbnails .img-responsive {
+    margin: 0 auto;
+    height:200px;
+    width:auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+form {
+	border-radius: 5px;
+	padding:20px;
+	background-color:white;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+input[type="submit"]{
+	margin-top: 25px;
+}
+
+.tblBtn{
+	max-width: 100px;
+}
+
+/*body{
+	background-color: rgb(244,243,242);
+}
+*/
+	</style>
+</head>
+
+<div class="row">
+	<div class="col-lg-12">
+	<tab-element tab-list="auctionProductTabList"></tab-element>
+		<panel-table 
+		type-ahead-model="typeAhead" 
+		min-date="minDate" 
+		max-date="maxDate" 
+		advanced-search = "true" 
+		table-search = "searchParam" 
+		panel-title="Auction Purchases" 
+		adv-search-fn = "searchBackend()">
+
+				<extra-element>
+
+				    <!-- Single button -->
+				    <div>
+					    <label>items registered in </label>
+					    <select ng-model="transclusion.dateRange" name="dateRange" ng-change="queryDate(transclusion.dateRange)">
+					    	<option value="last30">last 30 days</option>
+					    	<option value="months-6">last 6 months</option>
+					    	<option ng-repeat="year in yearRange| orderBy:'-'" value="[[year]]">[[year]]</option>
+					    </select>				    	
+				    </div>
+			    	
+
+
+<!-- 				    <div class="btn-group" uib-dropdown is-open="status.isopen">
+				      <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+				        [[DDSelection]]<span class="caret"></span>
+				      </button>
+				      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+				        <li role="menuitem"><a href="#">[[DDSelection = 'last 30 days']]</a></li>
+				        <li role="menuitem"><a href="#">[[DDSelection =  'past 6 months']]</a></li>
+				        <li role="menuitem" ng-repeat="year in yearRange"><a href="#">[[year]]</a></li>
+			        <li class="divider"></li>
+				        <li role="menuitem"><a href="#">Separated link</a></li> -->
+<!-- 				      </ul>
+				    </div> -->
+				</extra-element>
+				<div class="table-responsive">
+
+
+	 	
+	 		<div class="row" style="max-width:700px;margin:10px;">
+	 			<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+					<button ng-disabled ="purchases.length == 0" title ="Delete Selected" type="button" ng-click="eraseSelection()" class="btn btn-danger">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+	 			</div>
+	 			<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+	 				<!--ng-click="purchases=productsList"-->
+					<button  title="Refresh" type="button" ng-click="refreshList()" class="btn btn-info">
+						<i class="fa fa-refresh" aria-hidden="true"></i>
+					</button>
+	 			</div>
+	 			<div ng-show="results_count > 0" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+	 				<!-- <button ng-click="searchByModal()" type="button" class="btn btn-info">Search by:</button> -->
+	 				<span><b>[[results_count]]</b> Results Found for : [[searchType]] "[[query_param]]"</span>
+	 			</div>
+	 		</div>
+	 
+	 	<hr>
+<!-- 		<tr>
+			<td></td>
+			<td></td>
+		</tr>	 -->	
+
+				  	<table class="table table-condensed">
+				  	<thead>
+				  		<tr><!--ng-change="selectAllchx()"-->
+				  			<td><input type="checkbox"  name="selectAll" ng-model="selectAll" ng-change="selectAllChx()"></td>
+				  			<td ng-repeat="column in colList"><b>[[column.title]]</b>
+				  				<i class="fa fa-caret-down" aria-hidden="true"></i>
+				  				<i class="fa fa-caret-up" aria-hidden="true"></i>
+				  			</td>
+				  		</tr>				  		
+				  	</thead>
+
+				  		<tbody>
+					  		<tr ng-repeat="row in purchases|filter : searchParam as filtered">
+				  				<!-- <td ng-repeat="columnObj in colList">[[ row[columnObj.key] ]]</td> -->
+				  				<td>
+				  					<input ng-disabled="row.services.services_present" type="checkbox" ng-model="row.checked" name="checkboxrow[[$index]]">
+				  				<!-- <span ng-if="hasService(row)" class="bg-info">In Progress</span> -->
+				  				</td>
+				  				<td><a href="" ng-click="itemInfo(row)">[[row.item_name]]</a></td>
+				  				<td>[[row.lot_number]]</td>
+				 			  	<td>
+				 			  		<a href="" ng-click="auctionInfo(row.auction)">[[row.auction.host]]</a>
+				 			  	</td>
+						  		<!-- <td>[[row.auction_begin|date:'dd MMMM yyyy']]</td> -->
+<!-- 						  		<td>[[row.identifier|capitalize]]</td>
+						  		<td>[[row.status|capitalize]]</td> -->
+						  		<td>
+						  			<button  ng-if="!row.services.services_present" class="tblBtn btn btn-sm btn-info" ng-click="changePurchase(row)">[[row.status='Modify']]</button>
+						  			<span ng-if="row.services.services_present" class="bg-info">[[row.status='Item in OrderBook']]</span>
+<!-- 						  			<button  ng-if="hasService(row)" class="tblBtn btn btn-sm btn-success" ng-click="viewQuote(row)">View Quote</button> -->
+						  		</td>
+				  			</tr>			
+				  		</tbody>
+				  	</table>
+			  	</div>
+		</panel-table>
+	</div>
+</div>
